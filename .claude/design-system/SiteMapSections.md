@@ -1,0 +1,27 @@
+# SiteMapSections.md — DILIATE V2
+
+For each section: **Purpose** + **Priority for V2 launch** (Core = must-have, Later = post-launch per `PRD.md`'s "out of scope" list).
+
+| Section                  | Purpose                                                                                                            | Priority                                                                                                        |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------- |
+| **Home**                 | Cinematic entry point — value prop, service overview, proof points, primary CTA                                    | Core                                                                                                            |
+| **Services**             | Detail each service line (SaaS, AI, CRM/ERP, Healthcare, Real Estate, Custom, Mobile, Cloud)                       | Core                                                                                                            |
+| **Industries**           | Vertical-specific framing (Real Estate, Healthcare) — reuses service content, reframed by industry pain points     | Core (can launch with 2 industries: Real Estate, Healthcare — matching current product portfolio)               |
+| **Case Studies (index)** | Grid of interactive case studies                                                                                   | Core                                                                                                            |
+| **Project Detail**       | Full cinematic case study per `CaseStudyTemplate.md`                                                               | Core (3 case studies: WRES, MailEngine Pro, Sharma Pickle Store — CareBridge excluded, unreleased/confidential) |
+| **Engineering**          | Behind-the-scenes look at how DILIATE builds — architecture philosophy, quality standards — reinforces credibility | Later (strong nice-to-have, not launch-blocking)                                                                |
+| **Open Source**          | Any open-source contributions/tools, if applicable                                                                 | Later (only if real content exists)                                                                             |
+| **Labs**                 | Experimental/R&D showcase                                                                                          | Later                                                                                                           |
+| **Technologies**         | Tech stack showcase across projects                                                                                | Later (can fold into Engineering initially)                                                                     |
+| **About**                | Company narrative, mission/vision                                                                                  | Core                                                                                                            |
+| **Careers**              | Future — not applicable while solo                                                                                 | Later (explicitly future per master brief)                                                                      |
+| **Blog**                 | SEO content engine                                                                                                 | Out of scope for V2 (per `PRD.md`)                                                                              |
+| **Contact**              | Lead capture, Server Action form                                                                                   | Core                                                                                                            |
+| **404**                  | Branded not-found page, keeps the cinematic feel, provides way back                                                | Core (small effort, high polish value)                                                                          |
+| **Search**               | Site search                                                                                                        | Later (low value until Blog/Engineering/Labs content exists)                                                    |
+| **Navigation**           | Global nav — glass on scroll, clear service/case-study access                                                      | Core                                                                                                            |
+| **Footer**               | Sitemap links, social, contact, copyright                                                                          | Core                                                                                                            |
+
+## Recommendation
+
+Launch scope = Home, Services, Industries (2), Case Studies index + 4 project details, About, Contact, 404, Nav, Footer. This matches `Phases.md` Phases 3–6 and avoids scope creep into Engineering/Labs/Blog/Search until the core site proves itself — those are strong V2.1 additions once there's real content to fill them (open-source projects, blog posts) rather than empty placeholder sections.
