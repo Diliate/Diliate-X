@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Play } from "lucide-react";
-import { Spinner } from "@/components/ui/spinner";
-import { apiFetch, toGmailAccounts, type GmailAccount } from "@/lib/dashboard";
+import { apiFetch } from "@/lib/dashboard";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -39,29 +38,9 @@ export default function NewCampaignPage() {
     replyTo: "",
     htmlBody: "",
     recipients: "",
-    gmailAccountId: "",
   });
-  const [accounts, setAccounts] = useState<GmailAccount[]>([]);
-  const [accountsLoading, setAccountsLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    apiFetch("/api/gmail-pool")
-      .then((data) => {
-        const list = toGmailAccounts(data);
-        setAccounts(list);
-        if (list.length > 0)
-          setForm((f) => ({
-            ...f,
-            gmailAccountId: f.gmailAccountId || list[0].id,
-          }));
-      })
-      .catch((err: Error) =>
-        setError(`Could not load Gmail accounts: ${err.message}`),
-      )
-      .finally(() => setAccountsLoading(false));
-  }, []);
 
   const recipients = useMemo(
     () => parseRecipients(form.recipients),
@@ -103,7 +82,6 @@ export default function NewCampaignPage() {
           replyTo: form.replyTo.trim() || undefined,
           htmlBody: form.htmlBody,
           recipients: recipients.valid,
-          gmailAccountId: form.gmailAccountId,
         }),
       });
       router.push("/dashboard/campaigns");
@@ -120,7 +98,7 @@ export default function NewCampaignPage() {
       <div>
         <h1 className="text-foreground text-2xl font-bold">New Campaign</h1>
         <p className="text-secondary-foreground mt-1 text-sm">
-          Compose your email and launch it from your Gmail pool.
+          Compose your email and launch it to your recipients.
         </p>
       </div>
 
@@ -151,41 +129,6 @@ export default function NewCampaignPage() {
               placeholder="Q4 Newsletter"
               className={inputClass}
             />
-          </div>
-          <div>
-            <label htmlFor="campaign-gmail" className={labelClass}>
-              Send from Gmail
-            </label>
-            {accountsLoading ? (
-              <div className="text-secondary-foreground flex items-center gap-2 py-2 text-sm">
-                <Spinner label="Loading Gmail accounts" className="h-4 w-4" />{" "}
-                Loading accounts…
-              </div>
-            ) : accounts.length === 0 ? (
-              <p className="border-border text-secondary-foreground rounded-md border border-dashed px-3 py-2.5 text-sm">
-                No Gmail accounts connected.{" "}
-                <Link
-                  href="/dashboard/gmail-pool"
-                  className="text-primary font-medium hover:underline"
-                >
-                  Connect one in Gmail Pool →
-                </Link>
-              </p>
-            ) : (
-              <select
-                id="campaign-gmail"
-                required
-                value={form.gmailAccountId}
-                onChange={update("gmailAccountId")}
-                className={inputClass}
-              >
-                {accounts.map((a) => (
-                  <option key={a.id} value={a.id}>
-                    {a.email} ({a.status})
-                  </option>
-                ))}
-              </select>
-            )}
           </div>
         </fieldset>
 
@@ -313,7 +256,7 @@ export default function NewCampaignPage() {
           </Link>
           <button
             type="submit"
-            disabled={submitting || accounts.length === 0}
+            disabled={submitting}
             className="bg-primary text-primary-foreground hover:bg-primary/90 flex items-center gap-2 rounded-md px-5 py-2.5 text-sm font-semibold transition-all disabled:cursor-not-allowed disabled:opacity-60"
           >
             <Play aria-hidden className="h-4 w-4" />

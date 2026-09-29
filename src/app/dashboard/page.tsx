@@ -7,13 +7,11 @@ import {
   Send,
   PlusCircle,
   Mail,
-  Server,
   TrendingUp,
   ChevronRight,
   Eye,
   MousePointerClick,
   TrendingDown,
-  Inbox,
 } from "lucide-react";
 import { Spinner } from "@/components/ui/spinner";
 import CampaignStatusBadge from "@/components/sections/CampaignStatusBadge";
@@ -43,8 +41,6 @@ const fadeUp = {
 const quickActions = [
   { label: "New Campaign", icon: PlusCircle, href: "/dashboard/new-campaign" },
   { label: "View Campaigns", icon: Send, href: "/dashboard/campaigns" },
-  { label: "Gmail Pool", icon: Inbox, href: "/dashboard/gmail-pool" },
-  { label: "EC2 Instances", icon: Server, href: "/dashboard/instances" },
 ];
 
 export default function DashboardPage() {
@@ -237,7 +233,7 @@ export default function DashboardPage() {
           <h2 className="text-secondary-foreground mb-4 text-sm font-semibold">
             Quick Actions
           </h2>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3">
             {quickActions.map((action) => (
               <Link
                 key={action.label}

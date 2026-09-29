@@ -8,7 +8,6 @@ import {
   Mail,
   LayoutDashboard,
   Send,
-  Server,
   BarChart3,
   Settings,
   LogOut,
@@ -16,7 +15,6 @@ import {
   X,
   PlusCircle,
   Bell,
-  Inbox,
 } from "lucide-react";
 import { clearSession, USER_STORAGE_KEY, type StoredUser } from "@/lib/auth";
 import {
@@ -32,8 +30,6 @@ const navItems = [
   { href: "/dashboard", label: "Overview", icon: LayoutDashboard },
   { href: "/dashboard/campaigns", label: "Campaigns", icon: Send },
   { href: "/dashboard/new-campaign", label: "New Campaign", icon: PlusCircle },
-  { href: "/dashboard/gmail-pool", label: "Gmail Pool", icon: Inbox },
-  { href: "/dashboard/instances", label: "EC2 Instances", icon: Server },
   { href: "/dashboard/analytics", label: "Analytics", icon: BarChart3 },
   { href: "/dashboard/settings", label: "Settings", icon: Settings },
 ];

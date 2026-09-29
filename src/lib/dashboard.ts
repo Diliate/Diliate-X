@@ -128,26 +128,6 @@ export function toCampaigns(data: unknown): Campaign[] {
     .sort((a, b) => (b.createdAt ?? "").localeCompare(a.createdAt ?? ""));
 }
 
-// ── Gmail pool ────────────────────────────────────────────────────────
-
-export interface GmailAccount {
-  id: string;
-  email: string;
-  status: string;
-  connectedAt: string | null;
-}
-
-export function toGmailAccounts(data: unknown): GmailAccount[] {
-  return pickArray(data, ["accounts", "pool", "gmailPool", "data"])
-    .filter(isObject)
-    .map((a) => ({
-      id: str(a.id) || str(a._id) || String(a.id ?? a._id ?? ""),
-      email: str(a.email),
-      status: str(a.status, "active").toLowerCase(),
-      connectedAt: str(a.connectedAt) || str(a.createdAt) || null,
-    }));
-}
-
 // ── Formatting ────────────────────────────────────────────────────────
 
 /** Formats a percentage that the backend reports on a 0–100 scale. */

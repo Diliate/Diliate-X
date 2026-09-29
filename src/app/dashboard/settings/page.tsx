@@ -2,81 +2,12 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import {
-  User,
-  Lock,
-  Mail,
-  CreditCard,
-  Plus,
-  Trash2,
-  CheckCircle,
-  RefreshCw,
-  Key,
-  Shield,
-  Globe,
-} from "lucide-react";
+import { User, Plus, CheckCircle, Key, Shield } from "lucide-react";
 
-const tabs = ["Profile", "Security", "Gmail Pool", "Billing", "API Keys"];
-
-interface GmailAccount {
-  id: string;
-  email: string;
-  status: "active" | "expired" | "pending";
-  lastUsed: string;
-}
-
-const defaultGmailAccounts: GmailAccount[] = [
-  {
-    id: "1",
-    email: "safihakanuha3@gmail.com",
-    status: "active",
-    lastUsed: "2h ago",
-  },
-  {
-    id: "2",
-    email: "milandol3452@gmail.com",
-    status: "expired",
-    lastUsed: "3d ago",
-  },
-];
+const tabs = ["Profile", "Security", "Billing", "API Keys"];
 
 export default function SettingsPage() {
   const [tab, setTab] = useState("Profile");
-  const [gmailAccounts, setGmailAccounts] =
-    useState<GmailAccount[]>(defaultGmailAccounts);
-  const [newGmailEmail, setNewGmailEmail] = useState("");
-  const [addingGmail, setAddingGmail] = useState(false);
-
-  const startGmailAuth = async (email: string) => {
-    setAddingGmail(true);
-    try {
-      const res = await fetch("/api/gmail-pool/auth", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-      const data = await res.json();
-      if (data.authUrl) window.open(data.authUrl, "_blank");
-      setGmailAccounts((prev) => [
-        ...prev,
-        {
-          id: Date.now().toString(),
-          email,
-          status: "pending",
-          lastUsed: "Never",
-        },
-      ]);
-      setNewGmailEmail("");
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setAddingGmail(false);
-    }
-  };
-
-  const removeGmail = (id: string) => {
-    setGmailAccounts((prev) => prev.filter((a) => a.id !== id));
-  };
 
   return (
     <div className="mx-auto max-w-3xl space-y-6">
@@ -201,95 +132,6 @@ export default function SettingsPage() {
           <button className="rounded-md bg-[#f5c842] px-4 py-2 text-sm font-semibold text-[#0d0d0d] hover:bg-[#f0c030]">
             Update Password
           </button>
-        </motion.div>
-      )}
-
-      {/* ── Gmail Pool ── */}
-      {tab === "Gmail Pool" && (
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="space-y-5"
-        >
-          <div className="rounded-xl border border-[#1e1e1e] bg-[#111] p-6">
-            <h2 className="mb-1 flex items-center gap-2 text-base font-semibold text-[#f0f0f0]">
-              <Globe className="h-4 w-4 text-[#f5c842]" /> Gmail Pool
-            </h2>
-            <p className="mb-5 text-xs text-[#555]">
-              Connect Gmail accounts via OAuth2 for Gmail API bulk sending. Each
-              account can send up to 500 emails/day (free) or 2,000 emails/day
-              (Workspace).
-            </p>
-
-            {/* Add Gmail */}
-            <div className="mb-5 flex gap-2">
-              <input
-                type="email"
-                placeholder="gmail@gmail.com"
-                value={newGmailEmail}
-                onChange={(e) => setNewGmailEmail(e.target.value)}
-                className="flex-1 rounded-md border border-[#2a2a2a] bg-[#0d0d0d] px-3 py-2 text-sm text-[#f0f0f0] placeholder-[#444] outline-none focus:border-[#f5c842]/50"
-              />
-              <button
-                onClick={() => newGmailEmail && startGmailAuth(newGmailEmail)}
-                disabled={addingGmail || !newGmailEmail}
-                className="flex items-center gap-2 rounded-md bg-[#f5c842] px-4 py-2 text-sm font-semibold text-[#0d0d0d] disabled:opacity-40"
-              >
-                <Plus className="h-4 w-4" />
-                {addingGmail ? "Starting auth..." : "Add Account"}
-              </button>
-            </div>
-
-            {/* Account list */}
-            <div className="space-y-2">
-              {gmailAccounts.map((acc) => (
-                <div
-                  key={acc.id}
-                  className="flex items-center justify-between rounded-lg border border-[#1e1e1e] p-3"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#1e1e1e]">
-                      <Mail className="h-4 w-4 text-[#555]" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-[#f0f0f0]">{acc.email}</p>
-                      <p className="text-xs text-[#444]">
-                        Last used: {acc.lastUsed}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span
-                      className={`rounded-full px-2 py-0.5 text-xs font-medium ${
-                        acc.status === "active"
-                          ? "bg-green-400/10 text-green-400"
-                          : acc.status === "pending"
-                            ? "bg-[#f5c842]/10 text-[#f5c842]"
-                            : "bg-red-400/10 text-red-400"
-                      }`}
-                    >
-                      {acc.status}
-                    </span>
-                    {acc.status === "expired" && (
-                      <button
-                        onClick={() => startGmailAuth(acc.email)}
-                        className="p-1 text-[#444] hover:text-[#888]"
-                        title="Re-authenticate"
-                      >
-                        <RefreshCw className="h-3.5 w-3.5" />
-                      </button>
-                    )}
-                    <button
-                      onClick={() => removeGmail(acc.id)}
-                      className="p-1 text-[#444] hover:text-red-400"
-                    >
-                      <Trash2 className="h-3.5 w-3.5" />
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
         </motion.div>
       )}
 
