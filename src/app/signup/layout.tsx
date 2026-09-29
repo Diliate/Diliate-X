@@ -8,19 +8,19 @@ export default function SignupLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-signup-background min-h-screen text-white">
+    <div className="bg-signup-background text-foreground min-h-screen">
       <header className="mx-auto flex max-w-6xl items-center justify-between px-4 py-6 sm:px-6">
         <Link href="/" className="inline-flex items-center gap-2">
           <span className="bg-signup-accent flex h-8 w-8 items-center justify-center rounded-lg">
-            <Mail aria-hidden className="h-4 w-4 text-white" />
+            <Mail aria-hidden className="text-primary-foreground h-4 w-4" />
           </span>
           <span className="text-lg font-bold">Diliate</span>
         </Link>
-        <p className="text-sm text-slate-400">
+        <p className="text-secondary-foreground text-sm">
           Already have an account?{" "}
           <Link
             href="/login"
-            className="font-medium text-blue-400 hover:text-blue-300"
+            className="text-primary-ink hover:text-foreground font-medium"
           >
             Sign in
           </Link>

@@ -67,9 +67,9 @@ function validate(f: FormState): Errors {
 
 const inputClass = (invalid: boolean) =>
   cn(
-    "bg-signup-input w-full rounded-lg border px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 outline-none transition-colors",
-    "focus:border-signup-accent focus:ring-signup-accent/30 focus:ring-2",
-    invalid ? "border-red-500" : "border-slate-700",
+    "bg-signup-input w-full rounded-lg border px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground outline-none transition-colors",
+    "focus:border-primary-ink focus:ring-primary/40 focus:ring-2",
+    invalid ? "border-red-500" : "border-border",
   );
 
 /** Step 2 form: collects account + company details, verifies the website, then creates the account. */
@@ -187,14 +187,14 @@ export default function DetailsForm({
   const busy = status !== "idle";
   const fieldError = (name: FieldName) =>
     errors[name] ? (
-      <p id={`signup-${name}-error`} className="mt-1.5 text-xs text-red-400">
+      <p id={`signup-${name}-error`} className="mt-1.5 text-xs text-red-700">
         {errors[name]}
       </p>
     ) : null;
   const label = (name: FieldName, text: string) => (
     <label
       htmlFor={`signup-${name}`}
-      className="mb-1.5 block text-sm font-medium text-slate-300"
+      className="text-secondary-foreground mb-1.5 block text-sm font-medium"
     >
       {text}
     </label>
@@ -204,18 +204,18 @@ export default function DetailsForm({
     <div className="mx-auto max-w-3xl">
       <div className="mb-8 text-center">
         <h1 className="text-3xl font-bold">Create your account</h1>
-        <p className="mt-2 text-slate-400">
-          <span className="font-medium text-blue-400">{plan.name}</span> plan ·{" "}
-          {plan.emails} ·{" "}
+        <p className="text-secondary-foreground mt-2">
+          <span className="text-primary-ink font-medium">{plan.name}</span> plan
+          · {plan.emails} ·{" "}
           <Link
             href={`/signup?plan=${plan.id}`}
-            className="underline underline-offset-2 hover:text-white"
+            className="hover:text-foreground underline underline-offset-2"
           >
             Change plan
           </Link>
         </p>
         {plan.id !== "free" && (
-          <p className="mt-1.5 text-xs text-slate-400">
+          <p className="text-secondary-foreground mt-1.5 text-xs">
             Payment setup after account creation
           </p>
         )}
@@ -224,12 +224,12 @@ export default function DetailsForm({
       <form
         onSubmit={handleSubmit}
         noValidate
-        className="bg-signup-input/40 rounded-2xl border border-slate-700/70 p-6 sm:p-8"
+        className="bg-signup-input/40 border-border rounded-2xl border p-6 sm:p-8"
       >
         {formError && (
           <div
             role="alert"
-            className="mb-6 rounded-lg border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-400"
+            className="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
           >
             {formError}
           </div>
@@ -331,9 +331,9 @@ export default function DetailsForm({
           </div>
         </div>
 
-        <p className="bg-signup-background/60 mt-8 rounded-lg border border-slate-700/70 p-4 text-xs leading-relaxed text-slate-400">
+        <p className="bg-signup-background/60 border-border text-secondary-foreground mt-8 rounded-lg border p-4 text-xs leading-relaxed">
           By signing up you agree that Diliate will send emails on behalf of{" "}
-          <span className="font-semibold text-white">
+          <span className="text-foreground font-semibold">
             {form.companyName.trim() || "[Company Name]"}
           </span>{" "}
           using our sending infrastructure. Your company name and branding will
@@ -343,7 +343,7 @@ export default function DetailsForm({
         <button
           type="submit"
           disabled={busy}
-          className="bg-signup-accent hover:bg-signup-accent/90 focus-visible:ring-signup-accent focus-visible:ring-offset-signup-background mt-6 flex w-full items-center justify-center gap-2 rounded-lg py-3 text-sm font-semibold text-white transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-70"
+          className="bg-signup-accent hover:bg-signup-accent/90 focus-visible:ring-signup-accent focus-visible:ring-offset-signup-background text-primary-foreground mt-6 flex w-full items-center justify-center gap-2 rounded-lg py-3 text-sm font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-70"
         >
           {busy && (
             <Loader2

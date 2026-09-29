@@ -60,7 +60,7 @@ function NavItem({
       aria-current={active ? "page" : undefined}
       className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all ${
         active
-          ? "bg-primary/10 text-primary"
+          ? "bg-primary/10 text-primary-ink"
           : "text-secondary-foreground hover:bg-secondary hover:text-foreground"
       }`}
     >
@@ -181,7 +181,7 @@ export default function DashboardLayout({
 
         {/* Plan badge */}
         <div className="border-primary/20 bg-primary/5 mx-3 mt-4 rounded-lg border px-3 py-2">
-          <div className="text-primary text-xs font-medium capitalize">
+          <div className="text-primary-ink text-xs font-medium capitalize">
             {usage ? `${usage.plan} Plan` : "Loading plan…"}
           </div>
           {usage && (
@@ -206,7 +206,7 @@ export default function DashboardLayout({
           </div>
           <Link
             href="/dashboard/settings?tab=billing"
-            className="text-primary mt-2 block text-xs hover:underline"
+            className="text-primary-ink mt-2 block text-xs hover:underline"
           >
             Upgrade plan →
           </Link>
@@ -229,7 +229,7 @@ export default function DashboardLayout({
           <div className="flex items-center gap-3 rounded-lg px-3 py-2.5">
             <div
               aria-hidden
-              className="bg-primary/20 text-primary flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold uppercase"
+              className="bg-primary/20 text-primary-ink flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold uppercase"
             >
               {displayName.charAt(0)}
             </div>
@@ -245,7 +245,7 @@ export default function DashboardLayout({
           <button
             type="button"
             onClick={logout}
-            className="text-secondary-foreground hover:bg-secondary mt-1 flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm transition-all hover:text-red-400"
+            className="text-secondary-foreground hover:bg-secondary mt-1 flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm transition-all hover:text-red-700"
           >
             <LogOut aria-hidden className="h-4 w-4" />
             Sign out

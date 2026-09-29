@@ -39,30 +39,30 @@ export default function WelcomeMessage({ plan }: { plan?: Plan }) {
       initial={{ opacity: 0, y: 24, scale: 0.98 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1] }}
-      className="bg-signup-input/40 mx-auto max-w-xl rounded-2xl border border-slate-700/70 p-8 text-center sm:p-10"
+      className="bg-signup-input/40 border-border mx-auto max-w-xl rounded-2xl border p-8 text-center sm:p-10"
     >
-      <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-green-500/10">
-        <CheckCircle2 aria-hidden className="h-12 w-12 text-green-400" />
+      <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-green-50">
+        <CheckCircle2 aria-hidden className="h-12 w-12 text-green-700" />
       </div>
       <h1 className="text-3xl font-bold">
         Welcome to Diliate{firstName ? `, ${firstName}` : ""}!
       </h1>
-      <p className="mt-3 text-slate-400">
+      <p className="text-secondary-foreground mt-3">
         Your account is ready. Start sending emails with your company identity.
       </p>
 
-      <div className="bg-signup-background/60 mt-8 rounded-lg border border-slate-700/70 p-4 text-left">
-        <p className="text-xs font-medium tracking-wide text-slate-400 uppercase">
+      <div className="bg-signup-background/60 border-border mt-8 rounded-lg border p-4 text-left">
+        <p className="text-secondary-foreground text-xs font-medium tracking-wide uppercase">
           Your emails will appear as
         </p>
-        <p className="mt-1.5 font-mono text-sm break-all text-white">
-          {companyName || "Your Company"} &lt;noreply@diliate.com&gt;
+        <p className="text-foreground mt-1.5 font-mono text-sm break-all">
+          {`${companyName || "Your Company"} <noreply@diliate.com>`}
         </p>
       </div>
 
       {plan && plan.id !== "free" && (
         <div className="border-primary/40 bg-primary/10 mt-4 rounded-lg border p-4 text-left">
-          <p className="text-primary text-sm">
+          <p className="text-primary-ink text-sm">
             You selected the <span className="font-semibold">{plan.name}</span>{" "}
             plan. Complete payment to unlock{" "}
             {plan.monthlyEmails.toLocaleString("en-US")} emails/month.
@@ -73,14 +73,14 @@ export default function WelcomeMessage({ plan }: { plan?: Plan }) {
               aria-disabled="true"
               aria-describedby="payment-coming-soon"
               onClick={(e) => e.preventDefault()}
-              className="border-primary/50 text-primary focus-visible:ring-primary cursor-not-allowed rounded-md border px-3.5 py-2 text-sm font-semibold opacity-70 focus-visible:ring-2 focus-visible:outline-none"
+              className="border-primary/50 text-primary-ink focus-visible:ring-primary cursor-not-allowed rounded-md border px-3.5 py-2 text-sm font-semibold opacity-70 focus-visible:ring-2 focus-visible:outline-none"
             >
               Set Up Payment →
             </button>
             <span
               id="payment-coming-soon"
               role="tooltip"
-              className="bg-popover text-foreground pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 rounded-md border border-slate-700 px-2.5 py-1 text-xs whitespace-nowrap opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100"
+              className="bg-popover text-foreground border-border pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 rounded-md border px-2.5 py-1 text-xs whitespace-nowrap opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100"
             >
               Coming soon
             </span>
@@ -90,7 +90,7 @@ export default function WelcomeMessage({ plan }: { plan?: Plan }) {
 
       <Link
         href="/dashboard"
-        className="bg-signup-accent hover:bg-signup-accent/90 focus-visible:ring-signup-accent focus-visible:ring-offset-signup-background mt-8 inline-flex w-full items-center justify-center rounded-lg py-3 text-sm font-semibold text-white transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+        className="bg-signup-accent hover:bg-signup-accent/90 focus-visible:ring-signup-accent focus-visible:ring-offset-signup-background text-primary-foreground mt-8 inline-flex w-full items-center justify-center rounded-lg py-3 text-sm font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
       >
         Go to Dashboard →
       </Link>

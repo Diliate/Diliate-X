@@ -33,13 +33,13 @@ export default async function SignupPlanPage({
   return (
     <div className="pt-6">
       <div className="mx-auto mb-12 max-w-2xl text-center">
-        <p className="mb-3 text-sm font-semibold tracking-wide text-blue-400 uppercase">
+        <p className="text-primary-ink mb-3 text-sm font-semibold tracking-wide uppercase">
           Step 1 of 3
         </p>
         <h1 className="text-3xl font-bold sm:text-4xl">
           Pick the plan that fits your sending
         </h1>
-        <p className="mt-3 text-slate-400">
+        <p className="text-secondary-foreground mt-3">
           Start free and upgrade any time. No credit card required for Free.
         </p>
       </div>
@@ -56,7 +56,7 @@ export default async function SignupPlanPage({
                   "focus-within:border-signup-accent hover:border-signup-accent/60",
                   isSelected
                     ? "border-signup-accent shadow-[0_0_36px_-6px_var(--signup-accent)]"
-                    : "border-slate-700/70",
+                    : "border-border",
                 )}
               >
                 <div className="flex items-center justify-between">
@@ -64,27 +64,27 @@ export default async function SignupPlanPage({
                     {plan.name}
                   </h2>
                   {isSelected && (
-                    <span className="bg-signup-accent rounded-full px-2.5 py-0.5 text-xs font-medium text-white">
+                    <span className="bg-signup-accent text-primary-foreground rounded-full px-2.5 py-0.5 text-xs font-medium">
                       Selected
                     </span>
                   )}
                 </div>
                 <p className="mt-4">
                   <span className="text-4xl font-bold">{plan.price}</span>
-                  <span className="ml-1 text-sm text-slate-400">
+                  <span className="text-secondary-foreground ml-1 text-sm">
                     {plan.period}
                   </span>
                 </p>
-                <p className="mt-1 text-sm font-medium text-blue-400">
+                <p className="text-primary-ink mt-1 text-sm font-medium">
                   {plan.emails}
                 </p>
 
-                <ul className="mt-6 flex-1 space-y-3 text-sm text-slate-300">
+                <ul className="text-secondary-foreground mt-6 flex-1 space-y-3 text-sm">
                   {plan.features.map((feature) => (
                     <li key={feature} className="flex items-start gap-2">
                       <CheckCircle
                         aria-hidden
-                        className="mt-0.5 h-4 w-4 shrink-0 text-blue-400"
+                        className="text-primary-ink mt-0.5 h-4 w-4 shrink-0"
                       />
                       {feature}
                     </li>
@@ -98,8 +98,8 @@ export default async function SignupPlanPage({
                     "mt-8 block rounded-lg py-2.5 text-center text-sm font-semibold transition-colors",
                     "focus-visible:ring-signup-accent focus-visible:ring-offset-signup-background focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
                     isSelected
-                      ? "bg-signup-accent hover:bg-signup-accent/90 text-white"
-                      : "border-signup-accent/60 hover:bg-signup-accent border text-white",
+                      ? "bg-signup-accent hover:bg-signup-accent/90 text-primary-foreground"
+                      : "border-signup-accent/60 hover:bg-signup-accent text-primary-foreground border",
                   )}
                 >
                   Get Started

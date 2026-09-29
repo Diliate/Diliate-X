@@ -12,22 +12,22 @@ export default function SettingsPage() {
   return (
     <div className="mx-auto max-w-3xl space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-[#f0f0f0]">Settings</h1>
-        <p className="mt-1 text-sm text-[#555]">
+        <h1 className="text-foreground text-2xl font-bold">Settings</h1>
+        <p className="text-secondary-foreground mt-1 text-sm">
           Manage your account and preferences
         </p>
       </div>
 
       {/* Tab nav */}
-      <div className="flex overflow-x-auto border-b border-[#1e1e1e]">
+      <div className="border-border flex overflow-x-auto border-b">
         {tabs.map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
             className={`border-b-2 px-4 py-2.5 text-sm font-medium whitespace-nowrap transition-all ${
               tab === t
-                ? "border-[#f5c842] text-[#f5c842]"
-                : "border-transparent text-[#555] hover:text-[#888]"
+                ? "border-primary text-primary-ink"
+                : "text-secondary-foreground hover:text-secondary-foreground border-transparent"
             }`}
           >
             {t}
@@ -40,46 +40,50 @@ export default function SettingsPage() {
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="space-y-5 rounded-xl border border-[#1e1e1e] bg-[#111] p-6"
+          className="border-border bg-card space-y-5 rounded-xl border p-6"
         >
-          <h2 className="flex items-center gap-2 text-base font-semibold text-[#f0f0f0]">
-            <User className="h-4 w-4 text-[#f5c842]" /> Profile Information
+          <h2 className="text-foreground flex items-center gap-2 text-base font-semibold">
+            <User className="text-primary-ink h-4 w-4" /> Profile Information
           </h2>
 
           <div className="flex items-center gap-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#f5c842]/20 text-2xl font-bold text-[#f5c842]">
+            <div className="bg-primary/20 text-primary-ink flex h-16 w-16 items-center justify-center rounded-full text-2xl font-bold">
               N
             </div>
             <div>
-              <button className="text-sm text-[#f5c842] hover:underline">
+              <button className="text-primary-ink text-sm hover:underline">
                 Change avatar
               </button>
-              <p className="text-xs text-[#444]">JPG, PNG up to 2MB</p>
+              <p className="text-muted-foreground text-xs">
+                JPG, PNG up to 2MB
+              </p>
             </div>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label className="mb-1.5 block text-sm text-[#888]">
+              <label className="text-secondary-foreground mb-1.5 block text-sm">
                 Full Name
               </label>
               <input
                 type="text"
                 defaultValue="Nitin Sharma"
-                className="w-full rounded-md border border-[#2a2a2a] bg-[#0d0d0d] px-3 py-2.5 text-sm text-[#f0f0f0] outline-none focus:border-[#f5c842]/50"
+                className="border-border bg-background text-foreground focus:border-primary/50 w-full rounded-md border px-3 py-2.5 text-sm outline-none"
               />
             </div>
             <div>
-              <label className="mb-1.5 block text-sm text-[#888]">Email</label>
+              <label className="text-secondary-foreground mb-1.5 block text-sm">
+                Email
+              </label>
               <input
                 type="email"
                 defaultValue="nitin.sharma2882@gmail.com"
-                className="w-full rounded-md border border-[#2a2a2a] bg-[#0d0d0d] px-3 py-2.5 text-sm text-[#f0f0f0] outline-none focus:border-[#f5c842]/50"
+                className="border-border bg-background text-foreground focus:border-primary/50 w-full rounded-md border px-3 py-2.5 text-sm outline-none"
               />
             </div>
           </div>
 
-          <button className="rounded-md bg-[#f5c842] px-4 py-2 text-sm font-semibold text-[#0d0d0d] hover:bg-[#f0c030]">
+          <button className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-4 py-2 text-sm font-semibold">
             Save Changes
           </button>
         </motion.div>
@@ -90,46 +94,46 @@ export default function SettingsPage() {
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="space-y-5 rounded-xl border border-[#1e1e1e] bg-[#111] p-6"
+          className="border-border bg-card space-y-5 rounded-xl border p-6"
         >
-          <h2 className="flex items-center gap-2 text-base font-semibold text-[#f0f0f0]">
-            <Shield className="h-4 w-4 text-[#f5c842]" /> Security
+          <h2 className="text-foreground flex items-center gap-2 text-base font-semibold">
+            <Shield className="text-primary-ink h-4 w-4" /> Security
           </h2>
 
           <div className="space-y-4">
             <div>
-              <label className="mb-1.5 block text-sm text-[#888]">
+              <label className="text-secondary-foreground mb-1.5 block text-sm">
                 Current Password
               </label>
               <input
                 type="password"
                 placeholder="••••••••"
-                className="w-full rounded-md border border-[#2a2a2a] bg-[#0d0d0d] px-3 py-2.5 text-sm text-[#f0f0f0] outline-none focus:border-[#f5c842]/50"
+                className="border-border bg-background text-foreground focus:border-primary/50 w-full rounded-md border px-3 py-2.5 text-sm outline-none"
               />
             </div>
             <div>
-              <label className="mb-1.5 block text-sm text-[#888]">
+              <label className="text-secondary-foreground mb-1.5 block text-sm">
                 New Password
               </label>
               <input
                 type="password"
                 placeholder="Min. 8 characters"
-                className="w-full rounded-md border border-[#2a2a2a] bg-[#0d0d0d] px-3 py-2.5 text-sm text-[#f0f0f0] outline-none focus:border-[#f5c842]/50"
+                className="border-border bg-background text-foreground focus:border-primary/50 w-full rounded-md border px-3 py-2.5 text-sm outline-none"
               />
             </div>
             <div>
-              <label className="mb-1.5 block text-sm text-[#888]">
+              <label className="text-secondary-foreground mb-1.5 block text-sm">
                 Confirm New Password
               </label>
               <input
                 type="password"
                 placeholder="Repeat new password"
-                className="w-full rounded-md border border-[#2a2a2a] bg-[#0d0d0d] px-3 py-2.5 text-sm text-[#f0f0f0] outline-none focus:border-[#f5c842]/50"
+                className="border-border bg-background text-foreground focus:border-primary/50 w-full rounded-md border px-3 py-2.5 text-sm outline-none"
               />
             </div>
           </div>
 
-          <button className="rounded-md bg-[#f5c842] px-4 py-2 text-sm font-semibold text-[#0d0d0d] hover:bg-[#f0c030]">
+          <button className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-4 py-2 text-sm font-semibold">
             Update Password
           </button>
         </motion.div>
@@ -143,20 +147,20 @@ export default function SettingsPage() {
           className="space-y-5"
         >
           {/* Current plan */}
-          <div className="rounded-xl border border-[#f5c842]/30 bg-[#f5c842]/5 p-6">
+          <div className="border-primary/30 bg-primary/5 rounded-xl border p-6">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-sm font-semibold text-[#f5c842]">
+                <div className="text-primary-ink text-sm font-semibold">
                   Free Plan
                 </div>
-                <div className="mt-1 text-xs text-[#555]">
+                <div className="text-secondary-foreground mt-1 text-xs">
                   30 / 50 emails used this month
                 </div>
               </div>
-              <div className="text-2xl font-bold text-[#f0f0f0]">$0/mo</div>
+              <div className="text-foreground text-2xl font-bold">$0/mo</div>
             </div>
-            <div className="mt-4 h-2 rounded-full bg-[#1e1e1e]">
-              <div className="h-2 w-[60%] rounded-full bg-[#f5c842]" />
+            <div className="bg-secondary mt-4 h-2 rounded-full">
+              <div className="bg-primary h-2 w-[60%] rounded-full" />
             </div>
           </div>
 
@@ -196,27 +200,31 @@ export default function SettingsPage() {
             ].map((plan) => (
               <div
                 key={plan.name}
-                className="rounded-xl border border-[#1e1e1e] bg-[#111] p-5"
+                className="border-border bg-card rounded-xl border p-5"
               >
-                <div className="text-sm font-bold text-[#f0f0f0]">
+                <div className="text-foreground text-sm font-bold">
                   {plan.name}
                 </div>
-                <div className="mt-2 text-2xl font-bold text-[#f0f0f0]">
+                <div className="text-foreground mt-2 text-2xl font-bold">
                   {plan.price}
-                  <span className="text-sm font-normal text-[#555]">/mo</span>
+                  <span className="text-secondary-foreground text-sm font-normal">
+                    /mo
+                  </span>
                 </div>
-                <div className="mt-1 text-xs text-[#f5c842]">{plan.emails}</div>
+                <div className="text-primary-ink mt-1 text-xs">
+                  {plan.emails}
+                </div>
                 <ul className="mt-3 space-y-1.5">
                   {plan.features.map((f) => (
                     <li
                       key={f}
-                      className="flex items-center gap-1.5 text-xs text-[#666]"
+                      className="text-secondary-foreground flex items-center gap-1.5 text-xs"
                     >
-                      <CheckCircle className="h-3 w-3 text-[#f5c842]" /> {f}
+                      <CheckCircle className="text-primary-ink h-3 w-3" /> {f}
                     </li>
                   ))}
                 </ul>
-                <button className="mt-4 w-full rounded-md border border-[#f5c842]/30 py-2 text-xs font-semibold text-[#f5c842] hover:bg-[#f5c842]/10">
+                <button className="border-primary/30 text-primary-ink hover:bg-primary/10 mt-4 w-full rounded-md border py-2 text-xs font-semibold">
                   Upgrade to {plan.name}
                 </button>
               </div>
@@ -230,42 +238,42 @@ export default function SettingsPage() {
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="rounded-xl border border-[#1e1e1e] bg-[#111] p-6"
+          className="border-border bg-card rounded-xl border p-6"
         >
-          <h2 className="mb-1 flex items-center gap-2 text-base font-semibold text-[#f0f0f0]">
-            <Key className="h-4 w-4 text-[#f5c842]" /> API Keys
+          <h2 className="text-foreground mb-1 flex items-center gap-2 text-base font-semibold">
+            <Key className="text-primary-ink h-4 w-4" /> API Keys
           </h2>
-          <p className="mb-5 text-xs text-[#555]">
+          <p className="text-secondary-foreground mb-5 text-xs">
             Use these keys to integrate Diliate with your own apps and automate
             campaign creation.
           </p>
 
           <div className="space-y-3">
-            <div className="rounded-lg border border-[#2a2a2a] bg-[#0d0d0d] p-4">
+            <div className="border-border bg-background rounded-lg border p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-[#f0f0f0]">
+                  <p className="text-foreground text-sm font-medium">
                     Production API Key
                   </p>
-                  <p className="mt-0.5 text-xs text-[#555]">
+                  <p className="text-secondary-foreground mt-0.5 text-xs">
                     Created Sep 1, 2026
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <code className="rounded-md bg-[#1e1e1e] px-3 py-1 font-mono text-xs text-[#f5c842]">
+                  <code className="bg-secondary text-primary-ink rounded-md px-3 py-1 font-mono text-xs">
                     dlx_prod_••••••••••••
                   </code>
-                  <button className="text-xs text-[#444] hover:text-[#888]">
+                  <button className="text-muted-foreground hover:text-secondary-foreground text-xs">
                     Reveal
                   </button>
-                  <button className="text-xs text-[#444] hover:text-[#888]">
+                  <button className="text-muted-foreground hover:text-secondary-foreground text-xs">
                     Copy
                   </button>
                 </div>
               </div>
             </div>
 
-            <button className="flex items-center gap-2 rounded-md border border-[#2a2a2a] px-4 py-2 text-sm text-[#666] hover:bg-[#1a1a1a] hover:text-[#888]">
+            <button className="border-border text-secondary-foreground hover:bg-secondary hover:text-secondary-foreground flex items-center gap-2 rounded-md border px-4 py-2 text-sm">
               <Plus className="h-4 w-4" /> Generate New Key
             </button>
           </div>

@@ -1,7 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { TrendingUp, Mail, CheckCircle, XCircle, Clock, BarChart3 } from "lucide-react";
+import {
+  TrendingUp,
+  Mail,
+  CheckCircle,
+  XCircle,
+  Clock,
+  BarChart3,
+} from "lucide-react";
 
 const dailyData = [
   { day: "Mon", sent: 180, delivered: 175, failed: 5 },
@@ -24,30 +31,54 @@ export default function AnalyticsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-[#f0f0f0]">Analytics</h1>
-        <p className="mt-1 text-sm text-[#555]">Last 7 days — Sep 23 to Sep 29, 2026</p>
+        <h1 className="text-foreground text-2xl font-bold">Analytics</h1>
+        <p className="text-secondary-foreground mt-1 text-sm">
+          Last 7 days — Sep 23 to Sep 29, 2026
+        </p>
       </div>
 
       {/* Summary stats */}
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {[
-          { label: "Total Sent", value: totalSent.toLocaleString(), icon: Mail, color: "text-[#f5c842]" },
-          { label: "Delivered", value: totalDelivered.toLocaleString(), icon: CheckCircle, color: "text-green-400" },
-          { label: "Failed", value: totalFailed.toLocaleString(), icon: XCircle, color: "text-red-400" },
-          { label: "Delivery Rate", value: `${deliveryRate}%`, icon: TrendingUp, color: "text-blue-400" },
+          {
+            label: "Total Sent",
+            value: totalSent.toLocaleString(),
+            icon: Mail,
+            color: "text-primary-ink",
+          },
+          {
+            label: "Delivered",
+            value: totalDelivered.toLocaleString(),
+            icon: CheckCircle,
+            color: "text-green-700",
+          },
+          {
+            label: "Failed",
+            value: totalFailed.toLocaleString(),
+            icon: XCircle,
+            color: "text-red-700",
+          },
+          {
+            label: "Delivery Rate",
+            value: `${deliveryRate}%`,
+            icon: TrendingUp,
+            color: "text-blue-700",
+          },
         ].map((stat, i) => (
           <motion.div
             key={stat.label}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.07 }}
-            className="rounded-xl border border-[#1e1e1e] bg-[#111] p-5"
+            className="border-border bg-card rounded-xl border p-5"
           >
             <div className="flex items-center justify-between">
-              <p className="text-sm text-[#555]">{stat.label}</p>
+              <p className="text-secondary-foreground text-sm">{stat.label}</p>
               <stat.icon className={`h-4 w-4 ${stat.color}`} />
             </div>
-            <p className="mt-3 text-3xl font-bold text-[#f0f0f0]">{stat.value}</p>
+            <p className="text-foreground mt-3 text-3xl font-bold">
+              {stat.value}
+            </p>
           </motion.div>
         ))}
       </div>
@@ -57,17 +88,19 @@ export default function AnalyticsPage() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="rounded-xl border border-[#1e1e1e] bg-[#111] p-6"
+        className="border-border bg-card rounded-xl border p-6"
       >
         <div className="mb-6 flex items-center gap-2">
-          <BarChart3 className="h-4 w-4 text-[#f5c842]" />
-          <h2 className="text-sm font-semibold text-[#f0f0f0]">Daily Volume</h2>
+          <BarChart3 className="text-primary-ink h-4 w-4" />
+          <h2 className="text-foreground text-sm font-semibold">
+            Daily Volume
+          </h2>
         </div>
 
         {/* Legend */}
-        <div className="mb-4 flex items-center gap-4 text-xs text-[#555]">
+        <div className="text-secondary-foreground mb-4 flex items-center gap-4 text-xs">
           <span className="flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-sm bg-[#f5c842]" /> Sent
+            <span className="bg-primary h-2 w-2 rounded-sm" /> Sent
           </span>
           <span className="flex items-center gap-1.5">
             <span className="h-2 w-2 rounded-sm bg-green-400" /> Delivered
@@ -83,14 +116,21 @@ export default function AnalyticsPage() {
               key={d.day}
               initial={{ opacity: 0, scaleY: 0 }}
               animate={{ opacity: 1, scaleY: 1 }}
-              transition={{ delay: 0.4 + i * 0.07, duration: 0.5, ease: "easeOut" }}
+              transition={{
+                delay: 0.4 + i * 0.07,
+                duration: 0.5,
+                ease: "easeOut",
+              }}
               style={{ transformOrigin: "bottom" }}
               className="flex flex-1 flex-col items-center gap-1.5"
             >
-              <div className="flex w-full items-end gap-0.5" style={{ height: "160px" }}>
+              <div
+                className="flex w-full items-end gap-0.5"
+                style={{ height: "160px" }}
+              >
                 {/* Sent */}
                 <div
-                  className="flex-1 rounded-t-sm bg-[#f5c842]/30"
+                  className="bg-primary/30 flex-1 rounded-t-sm"
                   style={{ height: `${(d.sent / maxVal) * 100}%` }}
                 />
                 {/* Delivered */}
@@ -99,8 +139,10 @@ export default function AnalyticsPage() {
                   style={{ height: `${(d.delivered / maxVal) * 100}%` }}
                 />
               </div>
-              <span className="text-xs text-[#444]">{d.day}</span>
-              <span className="text-xs font-medium text-[#666]">{d.sent}</span>
+              <span className="text-muted-foreground text-xs">{d.day}</span>
+              <span className="text-secondary-foreground text-xs font-medium">
+                {d.sent}
+              </span>
             </motion.div>
           ))}
         </div>
@@ -111,14 +153,16 @@ export default function AnalyticsPage() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="rounded-xl border border-[#1e1e1e] bg-[#111]"
+        className="border-border bg-card rounded-xl border"
       >
-        <div className="border-b border-[#1e1e1e] px-5 py-4">
-          <h2 className="text-sm font-semibold text-[#f0f0f0]">Daily Breakdown</h2>
+        <div className="border-border border-b px-5 py-4">
+          <h2 className="text-foreground text-sm font-semibold">
+            Daily Breakdown
+          </h2>
         </div>
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-[#1e1e1e] text-xs text-[#444]">
+            <tr className="border-border text-muted-foreground border-b text-xs">
               <th className="px-5 py-3 text-left font-medium">Day</th>
               <th className="px-5 py-3 text-right font-medium">Sent</th>
               <th className="px-5 py-3 text-right font-medium">Delivered</th>
@@ -126,26 +170,40 @@ export default function AnalyticsPage() {
               <th className="px-5 py-3 text-right font-medium">Rate</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[#1e1e1e]">
+          <tbody className="divide-border divide-y">
             {dailyData.map((d) => (
-              <tr key={d.day} className="hover:bg-[#141414]">
-                <td className="px-5 py-3 text-[#888]">{d.day}</td>
-                <td className="px-5 py-3 text-right font-medium text-[#f0f0f0]">{d.sent}</td>
-                <td className="px-5 py-3 text-right text-green-400">{d.delivered}</td>
-                <td className="px-5 py-3 text-right text-red-400">{d.failed}</td>
-                <td className="px-5 py-3 text-right text-[#555]">
+              <tr key={d.day} className="hover:bg-card">
+                <td className="text-secondary-foreground px-5 py-3">{d.day}</td>
+                <td className="text-foreground px-5 py-3 text-right font-medium">
+                  {d.sent}
+                </td>
+                <td className="px-5 py-3 text-right text-green-700">
+                  {d.delivered}
+                </td>
+                <td className="px-5 py-3 text-right text-red-700">
+                  {d.failed}
+                </td>
+                <td className="text-secondary-foreground px-5 py-3 text-right">
                   {((d.delivered / d.sent) * 100).toFixed(1)}%
                 </td>
               </tr>
             ))}
           </tbody>
           <tfoot>
-            <tr className="border-t border-[#2a2a2a] text-xs font-bold">
-              <td className="px-5 py-3 text-[#888]">Total</td>
-              <td className="px-5 py-3 text-right text-[#f0f0f0]">{totalSent}</td>
-              <td className="px-5 py-3 text-right text-green-400">{totalDelivered}</td>
-              <td className="px-5 py-3 text-right text-red-400">{totalFailed}</td>
-              <td className="px-5 py-3 text-right text-[#f5c842]">{deliveryRate}%</td>
+            <tr className="border-border border-t text-xs font-bold">
+              <td className="text-secondary-foreground px-5 py-3">Total</td>
+              <td className="text-foreground px-5 py-3 text-right">
+                {totalSent}
+              </td>
+              <td className="px-5 py-3 text-right text-green-700">
+                {totalDelivered}
+              </td>
+              <td className="px-5 py-3 text-right text-red-700">
+                {totalFailed}
+              </td>
+              <td className="text-primary-ink px-5 py-3 text-right">
+                {deliveryRate}%
+              </td>
             </tr>
           </tfoot>
         </table>

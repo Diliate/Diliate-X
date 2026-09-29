@@ -105,7 +105,7 @@ export default function NewCampaignPage() {
       {error && (
         <div
           role="alert"
-          className="rounded-md border border-red-900/50 bg-red-900/20 px-4 py-3 text-sm text-red-400"
+          className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
         >
           {error}
         </div>
@@ -239,7 +239,7 @@ export default function NewCampaignPage() {
             {recipients.valid.length} valid recipient
             {recipients.valid.length === 1 ? "" : "s"}
             {recipients.invalid.length > 0 && (
-              <span className="text-red-400">
+              <span className="text-red-700">
                 {" "}
                 · {recipients.invalid.length} invalid
               </span>

@@ -83,7 +83,7 @@ export default function LoginPage() {
             onClick={handleGoogleLogin}
             className="border-border bg-popover text-foreground hover:bg-secondary mb-6 flex w-full items-center justify-center gap-3 rounded-md border px-4 py-3 text-sm font-medium transition-all"
           >
-            <Globe aria-hidden className="h-4 w-4 text-blue-400" />
+            <Globe aria-hidden className="h-4 w-4 text-blue-700" />
             Continue with Google
           </button>
 
@@ -98,7 +98,7 @@ export default function LoginPage() {
           {error && (
             <div
               role="alert"
-              className="mb-4 rounded-md border border-red-900/50 bg-red-900/20 px-4 py-3 text-sm text-red-400"
+              className="mb-4 rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
             >
               {error}
             </div>
@@ -191,7 +191,7 @@ export default function LoginPage() {
           Don&apos;t have an account?{" "}
           <Link
             href="/signup"
-            className="text-primary hover:text-primary/90 font-medium"
+            className="text-primary-ink hover:text-primary-ink/90 font-medium"
           >
             Create one free
           </Link>

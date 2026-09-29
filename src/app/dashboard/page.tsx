@@ -84,29 +84,29 @@ export default function DashboardPage() {
           label: "Emails Sent",
           value: formatNumber(stats.totalSent),
           icon: Send,
-          color: "text-primary",
+          color: "text-primary-ink",
           bg: "bg-primary/10",
         },
         {
           label: "Open Rate",
           value: formatPercent(stats.openRate),
           icon: Eye,
-          color: "text-green-400",
-          bg: "bg-green-400/10",
+          color: "text-green-700",
+          bg: "bg-green-50",
         },
         {
           label: "Click Rate",
           value: formatPercent(stats.clickRate),
           icon: MousePointerClick,
-          color: "text-blue-400",
-          bg: "bg-blue-400/10",
+          color: "text-blue-700",
+          bg: "bg-blue-50",
         },
         {
           label: "Bounce Rate",
           value: formatPercent(stats.bounceRate),
           icon: TrendingDown,
-          color: "text-red-400",
-          bg: "bg-red-400/10",
+          color: "text-red-700",
+          bg: "bg-red-50",
         },
       ]
     : [];
@@ -138,7 +138,7 @@ export default function DashboardPage() {
       {error && (
         <div
           role="alert"
-          className="rounded-md border border-red-900/50 bg-red-900/20 px-4 py-3 text-sm text-red-400"
+          className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
         >
           {error}
         </div>
@@ -183,8 +183,8 @@ export default function DashboardPage() {
             className="border-primary/20 bg-primary/5 rounded-xl border p-5"
           >
             <div className="flex items-center gap-2">
-              <Mail aria-hidden className="text-primary h-4 w-4" />
-              <span className="text-primary text-sm font-semibold capitalize">
+              <Mail aria-hidden className="text-primary-ink h-4 w-4" />
+              <span className="text-primary-ink text-sm font-semibold capitalize">
                 {stats.plan} Plan
               </span>
             </div>
@@ -214,7 +214,7 @@ export default function DashboardPage() {
             </div>
             <Link
               href="/dashboard/settings?tab=billing"
-              className="text-primary mt-4 flex items-center gap-1 text-sm font-medium hover:underline"
+              className="text-primary-ink mt-4 flex items-center gap-1 text-sm font-medium hover:underline"
             >
               Upgrade for more{" "}
               <ChevronRight aria-hidden className="h-3.5 w-3.5" />
@@ -262,7 +262,7 @@ export default function DashboardPage() {
           </h2>
           <Link
             href="/dashboard/campaigns"
-            className="text-primary text-xs hover:underline"
+            className="text-primary-ink text-xs hover:underline"
           >
             View all →
           </Link>
@@ -275,7 +275,7 @@ export default function DashboardPage() {
             </p>
             <Link
               href="/dashboard/new-campaign"
-              className="text-primary text-sm font-medium hover:underline"
+              className="text-primary-ink text-sm font-medium hover:underline"
             >
               Create campaign →
             </Link>

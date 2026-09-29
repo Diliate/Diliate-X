@@ -16,7 +16,7 @@ export function Spinner({
     >
       <Loader2
         aria-hidden
-        className="text-primary h-5 w-5 animate-spin motion-reduce:animate-none"
+        className="text-primary-ink h-5 w-5 animate-spin motion-reduce:animate-none"
       />
       <span className="sr-only">{label}</span>
     </span>

@@ -142,33 +142,33 @@ const stats = [
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-[#0d0d0d] text-[#f0f0f0]">
+    <div className="bg-background text-foreground min-h-screen">
       {/* ── Navbar ── */}
-      <nav className="fixed top-0 z-50 w-full border-b border-[#1e1e1e] bg-[#0d0d0d]/90 backdrop-blur-md">
+      <nav className="border-border bg-background/90 fixed top-0 z-50 w-full border-b backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-md bg-[#f5c842]">
-              <Mail className="h-5 w-5 text-[#0d0d0d]" />
+            <div className="bg-primary flex h-8 w-8 items-center justify-center rounded-md">
+              <Mail className="text-primary-foreground h-5 w-5" />
             </div>
-            <span className="text-lg font-bold text-[#f0f0f0]">Diliate</span>
+            <span className="text-foreground text-lg font-bold">Diliate</span>
           </Link>
 
           <div className="hidden items-center gap-8 md:flex">
             <Link
               href="#features"
-              className="text-sm text-[#888] transition-colors hover:text-[#f0f0f0]"
+              className="text-secondary-foreground hover:text-foreground text-sm transition-colors"
             >
               Features
             </Link>
             <Link
               href="#pricing"
-              className="text-sm text-[#888] transition-colors hover:text-[#f0f0f0]"
+              className="text-secondary-foreground hover:text-foreground text-sm transition-colors"
             >
               Pricing
             </Link>
             <Link
               href="#about"
-              className="text-sm text-[#888] transition-colors hover:text-[#f0f0f0]"
+              className="text-secondary-foreground hover:text-foreground text-sm transition-colors"
             >
               About
             </Link>
@@ -177,13 +177,13 @@ export default function HomePage() {
           <div className="flex items-center gap-3">
             <Link
               href="/login"
-              className="text-sm text-[#888] transition-colors hover:text-[#f0f0f0]"
+              className="text-secondary-foreground hover:text-foreground text-sm transition-colors"
             >
               Sign In
             </Link>
             <Link
               href="/signup"
-              className="rounded-md bg-[#f5c842] px-4 py-2 text-sm font-semibold text-[#0d0d0d] transition-all hover:bg-[#f0c030]"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-4 py-2 text-sm font-semibold transition-all"
             >
               Get Started Free
             </Link>
@@ -197,13 +197,13 @@ export default function HomePage() {
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.04]"
           style={{
-            backgroundImage: `linear-gradient(#f5c842 1px, transparent 1px), linear-gradient(90deg, #f5c842 1px, transparent 1px)`,
+            backgroundImage: `linear-gradient(var(--primary) 1px, transparent 1px), linear-gradient(90deg, var(--primary) 1px, transparent 1px)`,
             backgroundSize: "60px 60px",
           }}
         />
         {/* Radial glow */}
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <div className="h-[600px] w-[600px] rounded-full bg-[#f5c842]/5 blur-[120px]" />
+          <div className="bg-primary/5 h-[600px] w-[600px] rounded-full blur-[120px]" />
         </div>
 
         <div className="relative mx-auto max-w-5xl px-6 py-24 text-center">
@@ -212,7 +212,7 @@ export default function HomePage() {
             animate="visible"
             custom={0}
             variants={fadeUp}
-            className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#f5c842]/30 bg-[#f5c842]/10 px-4 py-1.5 text-sm text-[#f5c842]"
+            className="border-primary/30 bg-primary/10 text-primary-ink mb-4 inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm"
           >
             <Zap className="h-3.5 w-3.5" />
             Bulk email sending made simple
@@ -223,9 +223,9 @@ export default function HomePage() {
             animate="visible"
             custom={1}
             variants={fadeUp}
-            className="mb-6 text-5xl leading-tight font-bold tracking-tight text-[#f0f0f0] md:text-7xl"
+            className="text-foreground mb-6 text-5xl leading-tight font-bold tracking-tight md:text-7xl"
           >
-            Send Emails at <span className="text-[#f5c842]">Scale</span>.
+            Send Emails at <span className="text-primary-ink">Scale</span>.
             <br />
             No Limits.
           </motion.h1>
@@ -235,7 +235,7 @@ export default function HomePage() {
             animate="visible"
             custom={2}
             variants={fadeUp}
-            className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-[#888]"
+            className="text-secondary-foreground mx-auto mb-10 max-w-2xl text-lg leading-relaxed"
           >
             Diliate is your all-in-one bulk email marketing platform. Run
             campaigns through dedicated sending agents, connect Gmail accounts
@@ -251,14 +251,14 @@ export default function HomePage() {
           >
             <Link
               href="/signup"
-              className="flex items-center gap-2 rounded-md bg-[#f5c842] px-8 py-3.5 text-base font-semibold text-[#0d0d0d] transition-all hover:bg-[#f0c030] hover:shadow-[0_0_30px_rgba(245,200,66,0.3)]"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 flex items-center gap-2 rounded-md px-8 py-3.5 text-base font-semibold transition-all hover:shadow-[0_0_30px_rgba(245,200,66,0.3)]"
             >
               Start for Free
               <ChevronRight className="h-4 w-4" />
             </Link>
             <Link
               href="#pricing"
-              className="flex items-center gap-2 rounded-md border border-[#2a2a2a] px-8 py-3.5 text-base font-semibold text-[#f0f0f0] transition-all hover:border-[#444] hover:bg-[#1e1e1e]"
+              className="border-border text-foreground hover:border-border hover:bg-secondary flex items-center gap-2 rounded-md border px-8 py-3.5 text-base font-semibold transition-all"
             >
               View Pricing
             </Link>
@@ -269,7 +269,7 @@ export default function HomePage() {
             animate="visible"
             custom={4}
             variants={fadeUp}
-            className="mt-6 text-sm text-[#555]"
+            className="text-secondary-foreground mt-6 text-sm"
           >
             Free plan includes 50 emails/month. No credit card required.
           </motion.p>
@@ -277,7 +277,7 @@ export default function HomePage() {
       </section>
 
       {/* ── Stats ── */}
-      <section className="border-y border-[#1e1e1e] bg-[#111]">
+      <section className="border-border bg-card border-y">
         <div className="mx-auto max-w-5xl px-6 py-12">
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
             {stats.map((stat, i) => (
@@ -290,10 +290,12 @@ export default function HomePage() {
                 variants={fadeUp}
                 className="text-center"
               >
-                <div className="text-3xl font-bold text-[#f5c842]">
+                <div className="text-primary-ink text-3xl font-bold">
                   {stat.value}
                 </div>
-                <div className="mt-1 text-sm text-[#666]">{stat.label}</div>
+                <div className="text-secondary-foreground mt-1 text-sm">
+                  {stat.label}
+                </div>
               </motion.div>
             ))}
           </div>
@@ -310,13 +312,13 @@ export default function HomePage() {
             variants={fadeUp}
             className="mb-16 text-center"
           >
-            <div className="mb-3 text-sm font-semibold tracking-widest text-[#f5c842] uppercase">
+            <div className="text-primary-ink mb-3 text-sm font-semibold tracking-widest uppercase">
               Features
             </div>
-            <h2 className="text-4xl font-bold text-[#f0f0f0]">
+            <h2 className="text-foreground text-4xl font-bold">
               Everything you need to send at scale
             </h2>
-            <p className="mt-4 text-[#666]">
+            <p className="text-secondary-foreground mt-4">
               Built by email senders, for email senders — the same engine
               powering MailEngine Pro, now on the web.
             </p>
@@ -331,15 +333,17 @@ export default function HomePage() {
                 viewport={{ once: true }}
                 custom={i}
                 variants={fadeUp}
-                className="rounded-xl border border-[#1e1e1e] bg-[#111] p-6 transition-all hover:border-[#f5c842]/30 hover:bg-[#141414]"
+                className="border-border bg-card hover:border-primary/30 hover:bg-card rounded-xl border p-6 transition-all"
               >
-                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-[#f5c842]/10">
-                  <f.icon className="h-5 w-5 text-[#f5c842]" />
+                <div className="bg-primary/10 mb-4 flex h-10 w-10 items-center justify-center rounded-lg">
+                  <f.icon className="text-primary-ink h-5 w-5" />
                 </div>
-                <h3 className="mb-2 text-lg font-semibold text-[#f0f0f0]">
+                <h3 className="text-foreground mb-2 text-lg font-semibold">
                   {f.title}
                 </h3>
-                <p className="text-sm leading-relaxed text-[#666]">{f.desc}</p>
+                <p className="text-secondary-foreground text-sm leading-relaxed">
+                  {f.desc}
+                </p>
               </motion.div>
             ))}
           </div>
@@ -347,7 +351,7 @@ export default function HomePage() {
       </section>
 
       {/* ── How it works ── */}
-      <section className="border-y border-[#1e1e1e] bg-[#111] py-24">
+      <section className="border-border bg-card border-y py-24">
         <div className="mx-auto max-w-5xl px-6">
           <motion.div
             initial="hidden"
@@ -356,10 +360,10 @@ export default function HomePage() {
             variants={fadeUp}
             className="mb-16 text-center"
           >
-            <div className="mb-3 text-sm font-semibold tracking-widest text-[#f5c842] uppercase">
+            <div className="text-primary-ink mb-3 text-sm font-semibold tracking-widest uppercase">
               How It Works
             </div>
-            <h2 className="text-4xl font-bold text-[#f0f0f0]">
+            <h2 className="text-foreground text-4xl font-bold">
               From signup to sending in minutes
             </h2>
           </motion.div>
@@ -394,16 +398,16 @@ export default function HomePage() {
                 variants={fadeUp}
                 className="relative text-center"
               >
-                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full border border-[#f5c842]/30 bg-[#f5c842]/10">
-                  <step.icon className="h-6 w-6 text-[#f5c842]" />
+                <div className="border-primary/30 bg-primary/10 mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full border">
+                  <step.icon className="text-primary-ink h-6 w-6" />
                 </div>
-                <div className="mb-1 text-xs font-bold tracking-widest text-[#444]">
+                <div className="text-muted-foreground mb-1 text-xs font-bold tracking-widest">
                   {step.step}
                 </div>
-                <h3 className="mb-2 text-lg font-semibold text-[#f0f0f0]">
+                <h3 className="text-foreground mb-2 text-lg font-semibold">
                   {step.title}
                 </h3>
-                <p className="text-sm text-[#666]">{step.desc}</p>
+                <p className="text-secondary-foreground text-sm">{step.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -420,13 +424,13 @@ export default function HomePage() {
             variants={fadeUp}
             className="mb-16 text-center"
           >
-            <div className="mb-3 text-sm font-semibold tracking-widest text-[#f5c842] uppercase">
+            <div className="text-primary-ink mb-3 text-sm font-semibold tracking-widest uppercase">
               Pricing
             </div>
-            <h2 className="text-4xl font-bold text-[#f0f0f0]">
+            <h2 className="text-foreground text-4xl font-bold">
               Simple, transparent pricing
             </h2>
-            <p className="mt-4 text-[#666]">
+            <p className="text-secondary-foreground mt-4">
               Start free. Scale as you grow. No hidden fees.
             </p>
           </motion.div>
@@ -442,29 +446,31 @@ export default function HomePage() {
                 variants={fadeUp}
                 className={`relative rounded-xl border p-6 ${
                   plan.highlight
-                    ? "border-[#f5c842] bg-[#f5c842]/5 shadow-[0_0_40px_rgba(245,200,66,0.1)]"
-                    : "border-[#1e1e1e] bg-[#111]"
+                    ? "border-primary bg-primary/5 shadow-[0_0_40px_rgba(245,200,66,0.1)]"
+                    : "border-border bg-card"
                 }`}
               >
                 {plan.highlight && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#f5c842] px-3 py-0.5 text-xs font-bold text-[#0d0d0d]">
+                  <div className="bg-primary text-primary-foreground absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-3 py-0.5 text-xs font-bold">
                     Most Popular
                   </div>
                 )}
                 <div className="mb-4">
-                  <h3 className="text-lg font-bold text-[#f0f0f0]">
+                  <h3 className="text-foreground text-lg font-bold">
                     {plan.name}
                   </h3>
-                  <p className="mt-1 text-sm text-[#666]">{plan.description}</p>
+                  <p className="text-secondary-foreground mt-1 text-sm">
+                    {plan.description}
+                  </p>
                 </div>
                 <div className="mb-6">
-                  <span className="text-4xl font-bold text-[#f0f0f0]">
+                  <span className="text-foreground text-4xl font-bold">
                     {plan.price}
                   </span>
-                  <span className="ml-1 text-sm text-[#666]">
+                  <span className="text-secondary-foreground ml-1 text-sm">
                     /{plan.period}
                   </span>
-                  <div className="mt-2 text-sm font-medium text-[#f5c842]">
+                  <div className="text-primary-ink mt-2 text-sm font-medium">
                     {plan.emails}
                   </div>
                 </div>
@@ -472,9 +478,9 @@ export default function HomePage() {
                   {plan.features.map((feat) => (
                     <li
                       key={feat}
-                      className="flex items-center gap-2 text-sm text-[#888]"
+                      className="text-secondary-foreground flex items-center gap-2 text-sm"
                     >
-                      <CheckCircle className="h-4 w-4 shrink-0 text-[#f5c842]" />
+                      <CheckCircle className="text-primary-ink h-4 w-4 shrink-0" />
                       {feat}
                     </li>
                   ))}
@@ -483,8 +489,8 @@ export default function HomePage() {
                   href={plan.href}
                   className={`block rounded-md py-2.5 text-center text-sm font-semibold transition-all ${
                     plan.highlight
-                      ? "bg-[#f5c842] text-[#0d0d0d] hover:bg-[#f0c030]"
-                      : "border border-[#2a2a2a] text-[#f0f0f0] hover:border-[#444] hover:bg-[#1e1e1e]"
+                      ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                      : "border-border text-foreground hover:border-border hover:bg-secondary border"
                   }`}
                 >
                   {plan.cta}
@@ -496,7 +502,7 @@ export default function HomePage() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="border-t border-[#1e1e1e] bg-[#111] py-24">
+      <section className="border-border bg-card border-t py-24">
         <div className="mx-auto max-w-3xl px-6 text-center">
           <motion.div
             initial="hidden"
@@ -504,23 +510,23 @@ export default function HomePage() {
             viewport={{ once: true }}
             variants={fadeUp}
           >
-            <h2 className="text-4xl font-bold text-[#f0f0f0]">
+            <h2 className="text-foreground text-4xl font-bold">
               Ready to send at scale?
             </h2>
-            <p className="mt-4 text-[#666]">
+            <p className="text-secondary-foreground mt-4">
               Join businesses that trust Diliate to deliver their most important
               emails.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
                 href="/signup"
-                className="flex items-center gap-2 rounded-md bg-[#f5c842] px-8 py-3.5 text-base font-semibold text-[#0d0d0d] transition-all hover:bg-[#f0c030] hover:shadow-[0_0_30px_rgba(245,200,66,0.3)]"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 flex items-center gap-2 rounded-md px-8 py-3.5 text-base font-semibold transition-all hover:shadow-[0_0_30px_rgba(245,200,66,0.3)]"
               >
                 Get Started Free
                 <ChevronRight className="h-4 w-4" />
               </Link>
             </div>
-            <p className="mt-4 text-sm text-[#555]">
+            <p className="text-secondary-foreground mt-4 text-sm">
               No credit card required • 50 emails free
             </p>
           </motion.div>
@@ -528,27 +534,27 @@ export default function HomePage() {
       </section>
 
       {/* ── Footer ── */}
-      <footer className="border-t border-[#1e1e1e] py-12">
+      <footer className="border-border border-t py-12">
         <div className="mx-auto max-w-7xl px-6">
           <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             <div className="flex items-center gap-2">
-              <div className="flex h-7 w-7 items-center justify-center rounded-md bg-[#f5c842]">
-                <Mail className="h-4 w-4 text-[#0d0d0d]" />
+              <div className="bg-primary flex h-7 w-7 items-center justify-center rounded-md">
+                <Mail className="text-primary-foreground h-4 w-4" />
               </div>
-              <span className="font-bold text-[#f0f0f0]">Diliate</span>
+              <span className="text-foreground font-bold">Diliate</span>
             </div>
-            <div className="flex items-center gap-6 text-sm text-[#555]">
-              <Link href="/privacy" className="hover:text-[#888]">
+            <div className="text-secondary-foreground flex items-center gap-6 text-sm">
+              <Link href="/privacy" className="hover:text-secondary-foreground">
                 Privacy
               </Link>
-              <Link href="/terms" className="hover:text-[#888]">
+              <Link href="/terms" className="hover:text-secondary-foreground">
                 Terms
               </Link>
-              <Link href="/contact" className="hover:text-[#888]">
+              <Link href="/contact" className="hover:text-secondary-foreground">
                 Contact
               </Link>
             </div>
-            <p className="text-sm text-[#444]">
+            <p className="text-muted-foreground text-sm">
               © 2026 Diliate. All rights reserved.
             </p>
           </div>

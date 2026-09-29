@@ -2,12 +2,12 @@ import { cn } from "@/lib/utils";
 
 const statusStyles: Record<string, string> = {
   draft: "bg-muted text-muted-foreground",
-  running: "bg-blue-400/10 text-blue-400",
-  sending: "bg-blue-400/10 text-blue-400",
-  sent: "bg-green-400/10 text-green-400",
-  completed: "bg-green-400/10 text-green-400",
-  paused: "bg-orange-400/10 text-orange-400",
-  failed: "bg-red-400/10 text-red-400",
+  running: "bg-blue-50 text-blue-700",
+  sending: "bg-blue-50 text-blue-700",
+  sent: "bg-green-50 text-green-700",
+  completed: "bg-green-50 text-green-700",
+  paused: "bg-orange-50 text-orange-700",
+  failed: "bg-red-50 text-red-700",
 };
 
 /** Colored pill for a campaign status (draft, running, sent, paused, failed). */

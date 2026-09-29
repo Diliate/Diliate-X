@@ -27,9 +27,10 @@ export default function SignupProgress({ current }: { current: 1 | 2 | 3 }) {
               <span
                 className={cn(
                   "flex h-8 w-8 items-center justify-center rounded-full border text-xs font-semibold",
-                  active && "border-signup-accent bg-signup-accent text-white",
-                  done && "border-signup-accent text-blue-400",
-                  !active && !done && "border-slate-600 text-slate-400",
+                  active &&
+                    "border-signup-accent bg-signup-accent text-primary-foreground",
+                  done && "border-signup-accent text-primary-ink",
+                  !active && !done && "border-border text-secondary-foreground",
                 )}
               >
                 {done ? <Check aria-hidden className="h-4 w-4" /> : step}
@@ -37,7 +38,9 @@ export default function SignupProgress({ current }: { current: 1 | 2 | 3 }) {
               <span
                 className={cn(
                   "text-xs",
-                  active ? "font-semibold text-blue-400" : "text-slate-400",
+                  active
+                    ? "text-primary-ink font-semibold"
+                    : "text-secondary-foreground",
                 )}
               >
                 Step {step}
@@ -51,7 +54,7 @@ export default function SignupProgress({ current }: { current: 1 | 2 | 3 }) {
                 aria-hidden
                 className={cn(
                   "mx-2 mb-5 h-px flex-1",
-                  done ? "bg-signup-accent" : "bg-slate-700",
+                  done ? "bg-signup-accent" : "bg-border",
                 )}
               />
             )}

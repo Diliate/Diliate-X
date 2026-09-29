@@ -29,6 +29,7 @@
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-primary-ink: var(--primary-ink);
   --color-primary: var(--primary);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
@@ -46,40 +47,41 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* DILIATE Dark Theme — matches MailEngine Pro */
+/* DILIATE White & Yellow Theme */
 :root {
-  --background: #0d0d0d;
-  --foreground: #f0f0f0;
-  --card: #141414;
-  --card-foreground: #f0f0f0;
-  --popover: #1a1a1a;
-  --popover-foreground: #f0f0f0;
+  --background: #ffffff;
+  --foreground: #0d0d0d;
+  --card: #ffffff;
+  --card-foreground: #0d0d0d;
+  --popover: #ffffff;
+  --popover-foreground: #0d0d0d;
   --primary: #f5c842;
   --primary-foreground: #0d0d0d;
-  --secondary: #1e1e1e;
-  --secondary-foreground: #a0a0a0;
-  --muted: #1e1e1e;
-  --muted-foreground: #6b6b6b;
+  /* Brand yellow is too light for text on white (1.6:1); use this for yellow text/links (5.3:1). */
+  --primary-ink: #8a6500;
+  --secondary: #f5f5f5;
+  --secondary-foreground: #555555;
+  --muted: #f5f5f5;
+  /* #737373 instead of #888 so muted text meets WCAG AA (4.7:1 on white). */
+  --muted-foreground: #737373;
   --accent: #f5c842;
   --accent-foreground: #0d0d0d;
   --destructive: #e53e3e;
-  --border: #2a2a2a;
-  --input: #1e1e1e;
+  --border: #e5e5e5;
+  --input: #f5f5f5;
   --ring: #f5c842;
   --radius: 0.5rem;
-  --sidebar: #111111;
-  --sidebar-foreground: #f0f0f0;
+  --sidebar: #fafafa;
+  --sidebar-foreground: #0d0d0d;
   --sidebar-primary: #f5c842;
   --sidebar-primary-foreground: #0d0d0d;
-  --sidebar-accent: #1e1e1e;
-  --sidebar-accent-foreground: #f0f0f0;
-  --sidebar-border: #2a2a2a;
+  --sidebar-accent: #fff8e1;
+  --sidebar-accent-foreground: #0d0d0d;
+  --sidebar-border: #e5e5e5;
   --sidebar-ring: #f5c842;
-
-  /* Signup / onboarding flow */
-  --signup-background: #0f0f1a;
-  --signup-input: #16162a;
-  --signup-accent: #1565ff;
+  --signup-background: #f9f9f9;
+  --signup-input: #ffffff;
+  --signup-accent: #f5c842;
 }
 
 @layer base {
@@ -88,26 +90,22 @@
   }
   body {
     @apply bg-background text-foreground;
-    background-color: #0d0d0d;
-    color: #f0f0f0;
   }
   html {
-    @apply font-sans;
-    background-color: #0d0d0d;
+    @apply bg-background font-sans;
   }
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0d0d0d;
+  background: var(--secondary);
 }
 ::-webkit-scrollbar-thumb {
-  background: #2a2a2a;
+  background: #d0d0d0;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #f5c842;
+  background: var(--primary);
 }

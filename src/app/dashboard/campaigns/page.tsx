@@ -50,7 +50,7 @@ export default function CampaignsPage() {
       {error && (
         <div
           role="alert"
-          className="rounded-md border border-red-900/50 bg-red-900/20 px-4 py-3 text-sm text-red-400"
+          className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
         >
           {error}
         </div>
@@ -63,7 +63,7 @@ export default function CampaignsPage() {
       ) : campaigns.length === 0 && !error ? (
         <div className="border-border bg-card flex flex-col items-center gap-3 rounded-xl border border-dashed px-6 py-16 text-center">
           <div className="bg-primary/10 rounded-full p-3">
-            <Send aria-hidden className="text-primary h-6 w-6" />
+            <Send aria-hidden className="text-primary-ink h-6 w-6" />
           </div>
           <p className="text-secondary-foreground text-sm">
             No campaigns yet — create your first one
