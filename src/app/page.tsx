@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   Mail,
@@ -147,9 +148,14 @@ export default function HomePage() {
       <nav className="border-border bg-background/90 fixed top-0 z-50 w-full border-b backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
-            <div className="bg-primary flex h-8 w-8 items-center justify-center rounded-md">
-              <Mail className="text-primary-foreground h-5 w-5" />
-            </div>
+            <Image
+              src="/brand/diliate-logo.png"
+              alt=""
+              width={36}
+              height={36}
+              className="rounded-lg"
+              priority
+            />
             <span className="text-foreground text-lg font-bold">Diliate</span>
           </Link>
 
@@ -538,9 +544,13 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-6">
           <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             <div className="flex items-center gap-2">
-              <div className="bg-primary flex h-7 w-7 items-center justify-center rounded-md">
-                <Mail className="text-primary-foreground h-4 w-4" />
-              </div>
+              <Image
+                src="/brand/diliate-logo.png"
+                alt=""
+                width={36}
+                height={36}
+                className="rounded-lg"
+              />
               <span className="text-foreground font-bold">Diliate</span>
             </div>
             <div className="text-secondary-foreground flex items-center gap-6 text-sm">
