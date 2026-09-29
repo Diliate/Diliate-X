@@ -120,11 +120,19 @@ export default function DetailsForm({
 
     try {
       setStatus("verifying");
-      const check = await fetch("/api/auth/validate-website", {
+      const checkRes = await fetch("/api/auth/validate-website", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url: form.websiteUrl }),
-      }).then((r) => r.json() as Promise<{ valid?: boolean }>);
+      });
+      if (checkRes.status === 429) {
+        throw new Error(
+          "Too many attempts. Please wait a minute and try again.",
+        );
+      }
+      const check = (await checkRes.json().catch(() => ({}))) as {
+        valid?: boolean;
+      };
       if (!check.valid) {
         setErrors({ websiteUrl: WEBSITE_ERROR });
         document.getElementById("signup-websiteUrl")?.focus();
@@ -148,7 +156,7 @@ export default function DetailsForm({
         saveSession(data.token, {
           name,
           email: form.businessEmail.trim(),
-          plan: plan.id,
+          plan: "free", // every signup starts on Free; paid plans are set up after payment
           companyName,
           ...data.user,
         });
@@ -200,6 +208,11 @@ export default function DetailsForm({
             Change plan
           </Link>
         </p>
+        {plan.id !== "free" && (
+          <p className="mt-1.5 text-xs text-slate-400">
+            Payment setup after account creation
+          </p>
+        )}
       </div>
 
       <form

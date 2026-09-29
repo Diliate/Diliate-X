@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { proxyToRailway, readJsonBody } from "@/lib/railway";
-import { findPlan } from "@/lib/plans";
 import { checkWebsite } from "@/lib/website";
 
 const str = (v: unknown) => (typeof v === "string" ? v.trim() : "");
@@ -64,6 +63,7 @@ export async function POST(req: NextRequest) {
 
   return proxyToRailway(req, "/api/user/signup", {
     auth: false,
+    // Explicit allowlist: `plan` is never forwarded, so Railway always creates a Free account.
     body: {
       name: `${firstName} ${lastName}`,
       email,
@@ -76,7 +76,6 @@ export async function POST(req: NextRequest) {
       websiteUrl: website.url,
       country: str(f.country),
       contactCount: str(f.contactCount),
-      plan: findPlan(str(f.plan))?.id ?? "free",
     },
   });
 }
