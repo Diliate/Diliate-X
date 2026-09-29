@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { findPlan } from "@/lib/plans";
 import SignupProgress from "../SignupProgress";
 import WelcomeMessage from "./WelcomeMessage";
 
@@ -22,11 +23,16 @@ export const metadata: Metadata = {
 };
 
 /** Step 3 of signup: confirmation + sending identity. */
-export default function SignupWelcomePage() {
+export default async function SignupWelcomePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ plan?: string | string[] }>;
+}) {
+  const plan = findPlan((await searchParams).plan);
   return (
     <div className="pt-2">
       <SignupProgress current={3} />
-      <WelcomeMessage />
+      <WelcomeMessage plan={plan} />
     </div>
   );
 }

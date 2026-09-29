@@ -4,6 +4,7 @@ import { useMemo, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
+import type { Plan } from "@/lib/plans";
 import { WELCOME_STORAGE_KEY } from "../details/DetailsForm";
 
 const noopSubscribe = () => () => {};
@@ -16,8 +17,11 @@ function readWelcome() {
   }
 }
 
-/** Greets the new user by name and shows how their emails will appear to recipients. */
-export default function WelcomeMessage() {
+/**
+ * Greets the new user by name and shows how their emails will appear to recipients.
+ * For a paid `plan`, also prompts the (upcoming) payment step.
+ */
+export default function WelcomeMessage({ plan }: { plan?: Plan }) {
   const raw = useSyncExternalStore(noopSubscribe, readWelcome, () => null);
   const { firstName, companyName } = useMemo<{
     firstName?: string;
@@ -55,6 +59,34 @@ export default function WelcomeMessage() {
           {companyName || "Your Company"} &lt;noreply@diliate.com&gt;
         </p>
       </div>
+
+      {plan && plan.id !== "free" && (
+        <div className="border-primary/40 bg-primary/10 mt-4 rounded-lg border p-4 text-left">
+          <p className="text-primary text-sm">
+            You selected the <span className="font-semibold">{plan.name}</span>{" "}
+            plan. Complete payment to unlock{" "}
+            {plan.monthlyEmails.toLocaleString("en-US")} emails/month.
+          </p>
+          <div className="group relative mt-3 inline-block">
+            <button
+              type="button"
+              aria-disabled="true"
+              aria-describedby="payment-coming-soon"
+              onClick={(e) => e.preventDefault()}
+              className="border-primary/50 text-primary focus-visible:ring-primary cursor-not-allowed rounded-md border px-3.5 py-2 text-sm font-semibold opacity-70 focus-visible:ring-2 focus-visible:outline-none"
+            >
+              Set Up Payment →
+            </button>
+            <span
+              id="payment-coming-soon"
+              role="tooltip"
+              className="bg-popover text-foreground pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 rounded-md border border-slate-700 px-2.5 py-1 text-xs whitespace-nowrap opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100"
+            >
+              Coming soon
+            </span>
+          </div>
+        </div>
+      )}
 
       <Link
         href="/dashboard"

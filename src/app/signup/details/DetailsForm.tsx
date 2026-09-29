@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { saveSession } from "@/lib/auth";
-import type { Plan } from "@/lib/plans";
+import { PENDING_PLAN_STORAGE_KEY, type Plan } from "@/lib/plans";
 
 /** sessionStorage key the welcome step reads `{ firstName, companyName }` from. */
 export const WELCOME_STORAGE_KEY = "diliate_signup_welcome";
@@ -169,7 +169,13 @@ export default function DetailsForm({
       } catch {
         // Welcome page falls back to a generic greeting.
       }
-      router.push("/signup/welcome");
+      try {
+        // Kept for the future payment step; the account itself is created on Free.
+        localStorage.setItem(PENDING_PLAN_STORAGE_KEY, plan.id);
+      } catch {
+        // The ?plan= param below still carries it to the welcome page.
+      }
+      router.push(`/signup/welcome?plan=${plan.id}`);
     } catch (err: unknown) {
       setFormError(
         err instanceof Error ? err.message : "Could not create your account",
