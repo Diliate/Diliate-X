@@ -56,7 +56,7 @@ const plans = [
       "Unlimited campaigns",
       "Advanced analytics",
       "SMTP + Gmail API",
-      "Multiple EC2 instances",
+      "High deliverability infrastructure",
       "Priority support",
     ],
     cta: "Start Starter",
@@ -91,8 +91,8 @@ const plans = [
     features: [
       "100,000 emails per month",
       "Everything in Pro",
-      "Custom EC2 instances",
-      "Gmail pool management",
+      "Priority infrastructure",
+      "Connected email accounts",
       "API access",
       "SLA + dedicated manager",
     ],
@@ -106,11 +106,11 @@ const features = [
   {
     icon: Send,
     title: "Bulk Email Campaigns",
-    desc: "Send thousands of emails simultaneously through multiple EC2 instances for unmatched throughput and deliverability.",
+    desc: "Send thousands of emails simultaneously through high-deliverability infrastructure for unmatched throughput.",
   },
   {
     icon: Mail,
-    title: "Gmail API Integration",
+    title: "Gmail OAuth sending",
     desc: "Connect your Gmail accounts via OAuth2 for direct API sending — no SMTP limits, higher deliverability.",
   },
   {
@@ -125,8 +125,8 @@ const features = [
   },
   {
     icon: Globe,
-    title: "EC2 SMTP Agents",
-    desc: "Your emails go out through dedicated AWS EC2 instances — fully isolated, scalable, and under your control.",
+    title: "Smart sending agents",
+    desc: "Your emails go out through dedicated sending agents — fully isolated, scalable, and under your control.",
   },
   {
     icon: Shield,
@@ -156,13 +156,22 @@ export default function HomePage() {
           </Link>
 
           <div className="hidden items-center gap-8 md:flex">
-            <Link href="#features" className="text-sm text-[#888] transition-colors hover:text-[#f0f0f0]">
+            <Link
+              href="#features"
+              className="text-sm text-[#888] transition-colors hover:text-[#f0f0f0]"
+            >
               Features
             </Link>
-            <Link href="#pricing" className="text-sm text-[#888] transition-colors hover:text-[#f0f0f0]">
+            <Link
+              href="#pricing"
+              className="text-sm text-[#888] transition-colors hover:text-[#f0f0f0]"
+            >
               Pricing
             </Link>
-            <Link href="#about" className="text-sm text-[#888] transition-colors hover:text-[#f0f0f0]">
+            <Link
+              href="#about"
+              className="text-sm text-[#888] transition-colors hover:text-[#f0f0f0]"
+            >
               About
             </Link>
           </div>
@@ -216,10 +225,9 @@ export default function HomePage() {
             animate="visible"
             custom={1}
             variants={fadeUp}
-            className="mb-6 text-5xl font-bold leading-tight tracking-tight text-[#f0f0f0] md:text-7xl"
+            className="mb-6 text-5xl leading-tight font-bold tracking-tight text-[#f0f0f0] md:text-7xl"
           >
-            Send Emails at{" "}
-            <span className="text-[#f5c842]">Scale</span>.
+            Send Emails at <span className="text-[#f5c842]">Scale</span>.
             <br />
             No Limits.
           </motion.h1>
@@ -231,8 +239,9 @@ export default function HomePage() {
             variants={fadeUp}
             className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-[#888]"
           >
-            Diliate is your all-in-one bulk email marketing platform. Run campaigns through dedicated
-            EC2 agents, connect Gmail accounts via API, and track every send in real time.
+            Diliate is your all-in-one bulk email marketing platform. Run
+            campaigns through dedicated sending agents, connect Gmail accounts
+            via OAuth, and track every send in real time.
           </motion.p>
 
           <motion.div
@@ -283,7 +292,9 @@ export default function HomePage() {
                 variants={fadeUp}
                 className="text-center"
               >
-                <div className="text-3xl font-bold text-[#f5c842]">{stat.value}</div>
+                <div className="text-3xl font-bold text-[#f5c842]">
+                  {stat.value}
+                </div>
                 <div className="mt-1 text-sm text-[#666]">{stat.label}</div>
               </motion.div>
             ))}
@@ -301,13 +312,15 @@ export default function HomePage() {
             variants={fadeUp}
             className="mb-16 text-center"
           >
-            <div className="mb-3 text-sm font-semibold uppercase tracking-widest text-[#f5c842]">
+            <div className="mb-3 text-sm font-semibold tracking-widest text-[#f5c842] uppercase">
               Features
             </div>
-            <h2 className="text-4xl font-bold text-[#f0f0f0]">Everything you need to send at scale</h2>
+            <h2 className="text-4xl font-bold text-[#f0f0f0]">
+              Everything you need to send at scale
+            </h2>
             <p className="mt-4 text-[#666]">
-              Built by email senders, for email senders — the same engine powering MailEngine Pro,
-              now on the web.
+              Built by email senders, for email senders — the same engine
+              powering MailEngine Pro, now on the web.
             </p>
           </motion.div>
 
@@ -325,7 +338,9 @@ export default function HomePage() {
                 <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-[#f5c842]/10">
                   <f.icon className="h-5 w-5 text-[#f5c842]" />
                 </div>
-                <h3 className="mb-2 text-lg font-semibold text-[#f0f0f0]">{f.title}</h3>
+                <h3 className="mb-2 text-lg font-semibold text-[#f0f0f0]">
+                  {f.title}
+                </h3>
                 <p className="text-sm leading-relaxed text-[#666]">{f.desc}</p>
               </motion.div>
             ))}
@@ -343,10 +358,12 @@ export default function HomePage() {
             variants={fadeUp}
             className="mb-16 text-center"
           >
-            <div className="mb-3 text-sm font-semibold uppercase tracking-widest text-[#f5c842]">
+            <div className="mb-3 text-sm font-semibold tracking-widest text-[#f5c842] uppercase">
               How It Works
             </div>
-            <h2 className="text-4xl font-bold text-[#f0f0f0]">From signup to sending in minutes</h2>
+            <h2 className="text-4xl font-bold text-[#f0f0f0]">
+              From signup to sending in minutes
+            </h2>
           </motion.div>
 
           <div className="relative grid gap-8 md:grid-cols-3">
@@ -382,8 +399,12 @@ export default function HomePage() {
                 <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full border border-[#f5c842]/30 bg-[#f5c842]/10">
                   <step.icon className="h-6 w-6 text-[#f5c842]" />
                 </div>
-                <div className="mb-1 text-xs font-bold tracking-widest text-[#444]">{step.step}</div>
-                <h3 className="mb-2 text-lg font-semibold text-[#f0f0f0]">{step.title}</h3>
+                <div className="mb-1 text-xs font-bold tracking-widest text-[#444]">
+                  {step.step}
+                </div>
+                <h3 className="mb-2 text-lg font-semibold text-[#f0f0f0]">
+                  {step.title}
+                </h3>
                 <p className="text-sm text-[#666]">{step.desc}</p>
               </motion.div>
             ))}
@@ -401,11 +422,15 @@ export default function HomePage() {
             variants={fadeUp}
             className="mb-16 text-center"
           >
-            <div className="mb-3 text-sm font-semibold uppercase tracking-widest text-[#f5c842]">
+            <div className="mb-3 text-sm font-semibold tracking-widest text-[#f5c842] uppercase">
               Pricing
             </div>
-            <h2 className="text-4xl font-bold text-[#f0f0f0]">Simple, transparent pricing</h2>
-            <p className="mt-4 text-[#666]">Start free. Scale as you grow. No hidden fees.</p>
+            <h2 className="text-4xl font-bold text-[#f0f0f0]">
+              Simple, transparent pricing
+            </h2>
+            <p className="mt-4 text-[#666]">
+              Start free. Scale as you grow. No hidden fees.
+            </p>
           </motion.div>
 
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
@@ -429,17 +454,28 @@ export default function HomePage() {
                   </div>
                 )}
                 <div className="mb-4">
-                  <h3 className="text-lg font-bold text-[#f0f0f0]">{plan.name}</h3>
+                  <h3 className="text-lg font-bold text-[#f0f0f0]">
+                    {plan.name}
+                  </h3>
                   <p className="mt-1 text-sm text-[#666]">{plan.description}</p>
                 </div>
                 <div className="mb-6">
-                  <span className="text-4xl font-bold text-[#f0f0f0]">{plan.price}</span>
-                  <span className="ml-1 text-sm text-[#666]">/{plan.period}</span>
-                  <div className="mt-2 text-sm font-medium text-[#f5c842]">{plan.emails}</div>
+                  <span className="text-4xl font-bold text-[#f0f0f0]">
+                    {plan.price}
+                  </span>
+                  <span className="ml-1 text-sm text-[#666]">
+                    /{plan.period}
+                  </span>
+                  <div className="mt-2 text-sm font-medium text-[#f5c842]">
+                    {plan.emails}
+                  </div>
                 </div>
                 <ul className="mb-8 space-y-3">
                   {plan.features.map((feat) => (
-                    <li key={feat} className="flex items-center gap-2 text-sm text-[#888]">
+                    <li
+                      key={feat}
+                      className="flex items-center gap-2 text-sm text-[#888]"
+                    >
                       <CheckCircle className="h-4 w-4 shrink-0 text-[#f5c842]" />
                       {feat}
                     </li>
@@ -474,7 +510,8 @@ export default function HomePage() {
               Ready to send at scale?
             </h2>
             <p className="mt-4 text-[#666]">
-              Join businesses that trust Diliate to deliver their most important emails.
+              Join businesses that trust Diliate to deliver their most important
+              emails.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
@@ -485,7 +522,9 @@ export default function HomePage() {
                 <ChevronRight className="h-4 w-4" />
               </Link>
             </div>
-            <p className="mt-4 text-sm text-[#555]">No credit card required • 50 emails free</p>
+            <p className="mt-4 text-sm text-[#555]">
+              No credit card required • 50 emails free
+            </p>
           </motion.div>
         </div>
       </section>
@@ -501,11 +540,19 @@ export default function HomePage() {
               <span className="font-bold text-[#f0f0f0]">Diliate</span>
             </div>
             <div className="flex items-center gap-6 text-sm text-[#555]">
-              <Link href="/privacy" className="hover:text-[#888]">Privacy</Link>
-              <Link href="/terms" className="hover:text-[#888]">Terms</Link>
-              <Link href="/contact" className="hover:text-[#888]">Contact</Link>
+              <Link href="/privacy" className="hover:text-[#888]">
+                Privacy
+              </Link>
+              <Link href="/terms" className="hover:text-[#888]">
+                Terms
+              </Link>
+              <Link href="/contact" className="hover:text-[#888]">
+                Contact
+              </Link>
             </div>
-            <p className="text-sm text-[#444]">© 2026 Diliate. All rights reserved.</p>
+            <p className="text-sm text-[#444]">
+              © 2026 Diliate. All rights reserved.
+            </p>
           </div>
         </div>
       </footer>

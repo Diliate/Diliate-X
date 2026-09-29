@@ -169,7 +169,7 @@ export default function SettingsPage() {
                 emails: "5,000/mo",
                 features: [
                   "All Free features",
-                  "SMTP + Gmail API",
+                  "Gmail OAuth sending",
                   "Priority support",
                 ],
               },
@@ -189,7 +189,7 @@ export default function SettingsPage() {
                 emails: "100,000/mo",
                 features: [
                   "All Pro features",
-                  "Custom EC2",
+                  "Priority infrastructure",
                   "Dedicated manager",
                 ],
               },
