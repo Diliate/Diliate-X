@@ -10,6 +10,8 @@ export interface StoredUser {
   name: string;
   email: string;
   plan: string;
+  /** Set by the multi-step signup; shown as the sending identity on the welcome step. */
+  companyName?: string;
 }
 
 /** Persists the session after login/signup (browser only). */
@@ -24,6 +26,7 @@ export function saveSession(
     name: user?.name ?? "",
     email: user?.email ?? "",
     plan: user?.plan ?? "free",
+    ...(user?.companyName ? { companyName: user.companyName } : {}),
   };
   try {
     localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(stored));
