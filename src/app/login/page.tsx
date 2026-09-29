@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Mail, Lock, Eye, EyeOff, Globe } from "lucide-react";
 import { saveSession } from "@/lib/auth";
@@ -64,9 +65,14 @@ export default function LoginPage() {
       >
         <div className="mb-8 text-center">
           <Link href="/" className="inline-flex items-center gap-2">
-            <div className="bg-primary flex h-9 w-9 items-center justify-center rounded-lg">
-              <Mail aria-hidden className="text-primary-foreground h-5 w-5" />
-            </div>
+            <Image
+              src="/brand/diliate-logo.png"
+              alt=""
+              width={40}
+              height={40}
+              className="rounded-lg"
+              priority
+            />
             <span className="text-foreground text-xl font-bold">Diliate</span>
           </Link>
           <h1 className="text-foreground mt-6 text-2xl font-bold">

@@ -2,10 +2,10 @@
 
 import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { MotionConfig } from "framer-motion";
 import {
-  Mail,
   LayoutDashboard,
   Send,
   BarChart3,
@@ -164,9 +164,13 @@ export default function DashboardLayout({
         {/* Logo */}
         <div className="border-sidebar-border flex items-center justify-between border-b px-4 py-5">
           <Link href="/" className="flex items-center gap-2">
-            <div className="bg-primary flex h-7 w-7 items-center justify-center rounded-md">
-              <Mail aria-hidden className="text-primary-foreground h-4 w-4" />
-            </div>
+            <Image
+              src="/brand/diliate-logo.png"
+              alt=""
+              width={28}
+              height={28}
+              className="rounded-md"
+            />
             <span className="text-foreground font-bold">Diliate</span>
           </Link>
           <button
