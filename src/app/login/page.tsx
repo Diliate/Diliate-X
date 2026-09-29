@@ -4,6 +4,17 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Mail, Lock, Eye, EyeOff, Globe } from "lucide-react";
+import { saveSession } from "@/lib/auth";
+
+const inputClass =
+  "w-full rounded-md border border-border bg-background py-2.5 pl-10 text-sm text-foreground placeholder:text-muted-foreground outline-none transition-all focus:border-primary/50 focus:ring-1 focus:ring-primary/20";
+
+/** Only allow same-site relative redirects after login. */
+function safeNext(next: string | null) {
+  return next && next.startsWith("/") && !next.startsWith("//")
+    ? next
+    : "/dashboard";
+}
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -21,13 +32,16 @@ export default function LoginPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || "Login failed");
-      localStorage.setItem("diliate_token", data.token);
-      window.location.href = "/dashboard";
+      if (!data.token)
+        throw new Error("Login failed — no session token returned");
+      saveSession(data.token, data.user);
+      window.location.href = safeNext(
+        new URLSearchParams(window.location.search).get("next"),
+      );
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Login failed");
-    } finally {
       setLoading(false);
     }
   };
@@ -37,9 +51,9 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#0d0d0d] px-4">
+    <div className="bg-background flex min-h-screen items-center justify-center px-4">
       <div className="pointer-events-none fixed inset-0 flex items-center justify-center">
-        <div className="h-[500px] w-[500px] rounded-full bg-[#f5c842]/3 blur-[120px]" />
+        <div className="bg-primary/3 h-[500px] w-[500px] rounded-full blur-[120px]" />
       </div>
 
       <motion.div
@@ -50,75 +64,115 @@ export default function LoginPage() {
       >
         <div className="mb-8 text-center">
           <Link href="/" className="inline-flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#f5c842]">
-              <Mail className="h-5 w-5 text-[#0d0d0d]" />
+            <div className="bg-primary flex h-9 w-9 items-center justify-center rounded-lg">
+              <Mail aria-hidden className="text-primary-foreground h-5 w-5" />
             </div>
-            <span className="text-xl font-bold text-[#f0f0f0]">Diliate</span>
+            <span className="text-foreground text-xl font-bold">Diliate</span>
           </Link>
-          <h1 className="mt-6 text-2xl font-bold text-[#f0f0f0]">Welcome back</h1>
-          <p className="mt-2 text-sm text-[#666]">Sign in to your Diliate account</p>
+          <h1 className="text-foreground mt-6 text-2xl font-bold">
+            Welcome back
+          </h1>
+          <p className="text-secondary-foreground mt-2 text-sm">
+            Sign in to your Diliate account
+          </p>
         </div>
 
-        <div className="rounded-xl border border-[#1e1e1e] bg-[#111] p-8">
+        <div className="border-border bg-card rounded-xl border p-8">
           <button
+            type="button"
             onClick={handleGoogleLogin}
-            className="mb-6 flex w-full items-center justify-center gap-3 rounded-md border border-[#2a2a2a] bg-[#1a1a1a] px-4 py-3 text-sm font-medium text-[#f0f0f0] transition-all hover:border-[#3a3a3a] hover:bg-[#222]"
+            className="border-border bg-popover text-foreground hover:bg-secondary mb-6 flex w-full items-center justify-center gap-3 rounded-md border px-4 py-3 text-sm font-medium transition-all"
           >
-            <Globe className="h-4 w-4 text-[#4285F4]" />
+            <Globe aria-hidden className="h-4 w-4 text-blue-400" />
             Continue with Google
           </button>
 
           <div className="mb-6 flex items-center gap-3">
-            <div className="flex-1 border-t border-[#1e1e1e]" />
-            <span className="text-xs text-[#444]">or sign in with email</span>
-            <div className="flex-1 border-t border-[#1e1e1e]" />
+            <div className="border-border flex-1 border-t" />
+            <span className="text-muted-foreground text-xs">
+              or sign in with email
+            </span>
+            <div className="border-border flex-1 border-t" />
           </div>
 
           {error && (
-            <div className="mb-4 rounded-md border border-red-900/50 bg-red-900/20 px-4 py-3 text-sm text-red-400">
+            <div
+              role="alert"
+              className="mb-4 rounded-md border border-red-900/50 bg-red-900/20 px-4 py-3 text-sm text-red-400"
+            >
               {error}
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-[#888]">Email address</label>
+              <label
+                htmlFor="login-email"
+                className="text-secondary-foreground mb-1.5 block text-sm font-medium"
+              >
+                Email address
+              </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#444]" />
+                <Mail
+                  aria-hidden
+                  className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2"
+                />
                 <input
+                  id="login-email"
+                  name="email"
                   type="email"
+                  autoComplete="email"
                   required
                   placeholder="you@example.com"
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  className="w-full rounded-md border border-[#2a2a2a] bg-[#0d0d0d] py-2.5 pl-10 pr-4 text-sm text-[#f0f0f0] placeholder-[#444] outline-none transition-all focus:border-[#f5c842]/50 focus:ring-1 focus:ring-[#f5c842]/20"
+                  className={`${inputClass} pr-4`}
                 />
               </div>
             </div>
 
             <div>
               <div className="mb-1.5 flex items-center justify-between">
-                <label className="text-sm font-medium text-[#888]">Password</label>
-                <Link href="/forgot-password" className="text-xs text-[#555] hover:text-[#888]">
-                  Forgot password?
-                </Link>
+                <label
+                  htmlFor="login-password"
+                  className="text-secondary-foreground text-sm font-medium"
+                >
+                  Password
+                </label>
+                <span className="text-muted-foreground text-xs">
+                  Forgot password? Contact support
+                </span>
               </div>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#444]" />
+                <Lock
+                  aria-hidden
+                  className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2"
+                />
                 <input
+                  id="login-password"
+                  name="password"
                   type={showPassword ? "text" : "password"}
+                  autoComplete="current-password"
                   required
                   placeholder="Your password"
                   value={form.password}
-                  onChange={(e) => setForm({ ...form, password: e.target.value })}
-                  className="w-full rounded-md border border-[#2a2a2a] bg-[#0d0d0d] py-2.5 pl-10 pr-10 text-sm text-[#f0f0f0] placeholder-[#444] outline-none transition-all focus:border-[#f5c842]/50 focus:ring-1 focus:ring-[#f5c842]/20"
+                  onChange={(e) =>
+                    setForm({ ...form, password: e.target.value })
+                  }
+                  className={`${inputClass} pr-10`}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#444] hover:text-[#888]"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  aria-pressed={showPassword}
+                  className="text-muted-foreground hover:text-foreground absolute top-1/2 right-3 -translate-y-1/2"
                 >
-                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  {showPassword ? (
+                    <EyeOff aria-hidden className="h-4 w-4" />
+                  ) : (
+                    <Eye aria-hidden className="h-4 w-4" />
+                  )}
                 </button>
               </div>
             </div>
@@ -126,16 +180,19 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-md bg-[#f5c842] py-3 text-sm font-semibold text-[#0d0d0d] transition-all hover:bg-[#f0c030] disabled:cursor-not-allowed disabled:opacity-60"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 w-full rounded-md py-3 text-sm font-semibold transition-all disabled:cursor-not-allowed disabled:opacity-60"
             >
               {loading ? "Signing in..." : "Sign in"}
             </button>
           </form>
         </div>
 
-        <p className="mt-6 text-center text-sm text-[#555]">
+        <p className="text-secondary-foreground mt-6 text-center text-sm">
           Don&apos;t have an account?{" "}
-          <Link href="/signup" className="font-medium text-[#f5c842] hover:text-[#f0c030]">
+          <Link
+            href="/signup"
+            className="text-primary hover:text-primary/90 font-medium"
+          >
             Create one free
           </Link>
         </p>

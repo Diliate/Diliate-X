@@ -26,30 +26,45 @@ interface GmailAccount {
 }
 
 const defaultGmailAccounts: GmailAccount[] = [
-  { id: "1", email: "safihakanuha3@gmail.com", status: "active", lastUsed: "2h ago" },
-  { id: "2", email: "milandol3452@gmail.com", status: "expired", lastUsed: "3d ago" },
+  {
+    id: "1",
+    email: "safihakanuha3@gmail.com",
+    status: "active",
+    lastUsed: "2h ago",
+  },
+  {
+    id: "2",
+    email: "milandol3452@gmail.com",
+    status: "expired",
+    lastUsed: "3d ago",
+  },
 ];
 
 export default function SettingsPage() {
   const [tab, setTab] = useState("Profile");
-  const [gmailAccounts, setGmailAccounts] = useState<GmailAccount[]>(defaultGmailAccounts);
+  const [gmailAccounts, setGmailAccounts] =
+    useState<GmailAccount[]>(defaultGmailAccounts);
   const [newGmailEmail, setNewGmailEmail] = useState("");
   const [addingGmail, setAddingGmail] = useState(false);
 
   const startGmailAuth = async (email: string) => {
     setAddingGmail(true);
     try {
-      const token = localStorage.getItem("diliate_token");
       const res = await fetch("/api/gmail-pool/auth", {
         method: "POST",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
       const data = await res.json();
       if (data.authUrl) window.open(data.authUrl, "_blank");
       setGmailAccounts((prev) => [
         ...prev,
-        { id: Date.now().toString(), email, status: "pending", lastUsed: "Never" },
+        {
+          id: Date.now().toString(),
+          email,
+          status: "pending",
+          lastUsed: "Never",
+        },
       ]);
       setNewGmailEmail("");
     } catch (e) {
@@ -67,7 +82,9 @@ export default function SettingsPage() {
     <div className="mx-auto max-w-3xl space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-[#f0f0f0]">Settings</h1>
-        <p className="mt-1 text-sm text-[#555]">Manage your account and preferences</p>
+        <p className="mt-1 text-sm text-[#555]">
+          Manage your account and preferences
+        </p>
       </div>
 
       {/* Tab nav */}
@@ -76,7 +93,7 @@ export default function SettingsPage() {
           <button
             key={t}
             onClick={() => setTab(t)}
-            className={`whitespace-nowrap border-b-2 px-4 py-2.5 text-sm font-medium transition-all ${
+            className={`border-b-2 px-4 py-2.5 text-sm font-medium whitespace-nowrap transition-all ${
               tab === t
                 ? "border-[#f5c842] text-[#f5c842]"
                 : "border-transparent text-[#555] hover:text-[#888]"
@@ -103,14 +120,18 @@ export default function SettingsPage() {
               N
             </div>
             <div>
-              <button className="text-sm text-[#f5c842] hover:underline">Change avatar</button>
+              <button className="text-sm text-[#f5c842] hover:underline">
+                Change avatar
+              </button>
               <p className="text-xs text-[#444]">JPG, PNG up to 2MB</p>
             </div>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label className="mb-1.5 block text-sm text-[#888]">Full Name</label>
+              <label className="mb-1.5 block text-sm text-[#888]">
+                Full Name
+              </label>
               <input
                 type="text"
                 defaultValue="Nitin Sharma"
@@ -146,7 +167,9 @@ export default function SettingsPage() {
 
           <div className="space-y-4">
             <div>
-              <label className="mb-1.5 block text-sm text-[#888]">Current Password</label>
+              <label className="mb-1.5 block text-sm text-[#888]">
+                Current Password
+              </label>
               <input
                 type="password"
                 placeholder="••••••••"
@@ -154,7 +177,9 @@ export default function SettingsPage() {
               />
             </div>
             <div>
-              <label className="mb-1.5 block text-sm text-[#888]">New Password</label>
+              <label className="mb-1.5 block text-sm text-[#888]">
+                New Password
+              </label>
               <input
                 type="password"
                 placeholder="Min. 8 characters"
@@ -162,7 +187,9 @@ export default function SettingsPage() {
               />
             </div>
             <div>
-              <label className="mb-1.5 block text-sm text-[#888]">Confirm New Password</label>
+              <label className="mb-1.5 block text-sm text-[#888]">
+                Confirm New Password
+              </label>
               <input
                 type="password"
                 placeholder="Repeat new password"
@@ -189,8 +216,9 @@ export default function SettingsPage() {
               <Globe className="h-4 w-4 text-[#f5c842]" /> Gmail Pool
             </h2>
             <p className="mb-5 text-xs text-[#555]">
-              Connect Gmail accounts via OAuth2 for Gmail API bulk sending. Each account can send up
-              to 500 emails/day (free) or 2,000 emails/day (Workspace).
+              Connect Gmail accounts via OAuth2 for Gmail API bulk sending. Each
+              account can send up to 500 emails/day (free) or 2,000 emails/day
+              (Workspace).
             </p>
 
             {/* Add Gmail */}
@@ -225,7 +253,9 @@ export default function SettingsPage() {
                     </div>
                     <div>
                       <p className="text-sm text-[#f0f0f0]">{acc.email}</p>
-                      <p className="text-xs text-[#444]">Last used: {acc.lastUsed}</p>
+                      <p className="text-xs text-[#444]">
+                        Last used: {acc.lastUsed}
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
@@ -234,8 +264,8 @@ export default function SettingsPage() {
                         acc.status === "active"
                           ? "bg-green-400/10 text-green-400"
                           : acc.status === "pending"
-                          ? "bg-[#f5c842]/10 text-[#f5c842]"
-                          : "bg-red-400/10 text-red-400"
+                            ? "bg-[#f5c842]/10 text-[#f5c842]"
+                            : "bg-red-400/10 text-red-400"
                       }`}
                     >
                       {acc.status}
@@ -274,8 +304,12 @@ export default function SettingsPage() {
           <div className="rounded-xl border border-[#f5c842]/30 bg-[#f5c842]/5 p-6">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-sm font-semibold text-[#f5c842]">Free Plan</div>
-                <div className="mt-1 text-xs text-[#555]">30 / 50 emails used this month</div>
+                <div className="text-sm font-semibold text-[#f5c842]">
+                  Free Plan
+                </div>
+                <div className="mt-1 text-xs text-[#555]">
+                  30 / 50 emails used this month
+                </div>
               </div>
               <div className="text-2xl font-bold text-[#f0f0f0]">$0/mo</div>
             </div>
@@ -287,17 +321,55 @@ export default function SettingsPage() {
           {/* Upgrade plans */}
           <div className="grid gap-4 sm:grid-cols-3">
             {[
-              { name: "Starter", price: "$19", emails: "5,000/mo", features: ["All Free features", "SMTP + Gmail API", "Priority support"] },
-              { name: "Pro", price: "$49", emails: "25,000/mo", features: ["All Starter features", "Multi-page campaigns", "Clone & reuse"] },
-              { name: "Business", price: "$129", emails: "100,000/mo", features: ["All Pro features", "Custom EC2", "Dedicated manager"] },
+              {
+                name: "Starter",
+                price: "$19",
+                emails: "5,000/mo",
+                features: [
+                  "All Free features",
+                  "SMTP + Gmail API",
+                  "Priority support",
+                ],
+              },
+              {
+                name: "Pro",
+                price: "$49",
+                emails: "25,000/mo",
+                features: [
+                  "All Starter features",
+                  "Multi-page campaigns",
+                  "Clone & reuse",
+                ],
+              },
+              {
+                name: "Business",
+                price: "$129",
+                emails: "100,000/mo",
+                features: [
+                  "All Pro features",
+                  "Custom EC2",
+                  "Dedicated manager",
+                ],
+              },
             ].map((plan) => (
-              <div key={plan.name} className="rounded-xl border border-[#1e1e1e] bg-[#111] p-5">
-                <div className="text-sm font-bold text-[#f0f0f0]">{plan.name}</div>
-                <div className="mt-2 text-2xl font-bold text-[#f0f0f0]">{plan.price}<span className="text-sm font-normal text-[#555]">/mo</span></div>
+              <div
+                key={plan.name}
+                className="rounded-xl border border-[#1e1e1e] bg-[#111] p-5"
+              >
+                <div className="text-sm font-bold text-[#f0f0f0]">
+                  {plan.name}
+                </div>
+                <div className="mt-2 text-2xl font-bold text-[#f0f0f0]">
+                  {plan.price}
+                  <span className="text-sm font-normal text-[#555]">/mo</span>
+                </div>
                 <div className="mt-1 text-xs text-[#f5c842]">{plan.emails}</div>
                 <ul className="mt-3 space-y-1.5">
                   {plan.features.map((f) => (
-                    <li key={f} className="flex items-center gap-1.5 text-xs text-[#666]">
+                    <li
+                      key={f}
+                      className="flex items-center gap-1.5 text-xs text-[#666]"
+                    >
                       <CheckCircle className="h-3 w-3 text-[#f5c842]" /> {f}
                     </li>
                   ))}
@@ -322,22 +394,31 @@ export default function SettingsPage() {
             <Key className="h-4 w-4 text-[#f5c842]" /> API Keys
           </h2>
           <p className="mb-5 text-xs text-[#555]">
-            Use these keys to integrate Diliate with your own apps and automate campaign creation.
+            Use these keys to integrate Diliate with your own apps and automate
+            campaign creation.
           </p>
 
           <div className="space-y-3">
             <div className="rounded-lg border border-[#2a2a2a] bg-[#0d0d0d] p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-[#f0f0f0]">Production API Key</p>
-                  <p className="mt-0.5 text-xs text-[#555]">Created Sep 1, 2026</p>
+                  <p className="text-sm font-medium text-[#f0f0f0]">
+                    Production API Key
+                  </p>
+                  <p className="mt-0.5 text-xs text-[#555]">
+                    Created Sep 1, 2026
+                  </p>
                 </div>
                 <div className="flex items-center gap-2">
                   <code className="rounded-md bg-[#1e1e1e] px-3 py-1 font-mono text-xs text-[#f5c842]">
                     dlx_prod_••••••••••••
                   </code>
-                  <button className="text-xs text-[#444] hover:text-[#888]">Reveal</button>
-                  <button className="text-xs text-[#444] hover:text-[#888]">Copy</button>
+                  <button className="text-xs text-[#444] hover:text-[#888]">
+                    Reveal
+                  </button>
+                  <button className="text-xs text-[#444] hover:text-[#888]">
+                    Copy
+                  </button>
                 </div>
               </div>
             </div>

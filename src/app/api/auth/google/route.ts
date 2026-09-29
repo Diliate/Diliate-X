@@ -1,6 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
-
-const RAILWAY_URL = process.env.RAILWAY_URL || "https://mailflow-license-server-production.up.railway.app";
+import { NextResponse } from "next/server";
+import { RAILWAY_URL } from "@/lib/railway";
 
 /** GET /api/auth/google — redirects to Railway OAuth endpoint */
 export async function GET() {

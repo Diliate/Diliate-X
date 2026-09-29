@@ -1,29 +1,10 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
+import { proxyToRailway, readJsonBody } from "@/lib/railway";
 
-const RAILWAY_URL = process.env.RAILWAY_URL || "https://mailflow-license-server-production.up.railway.app";
-
+/** POST /api/auth/login — forwards credentials to Railway and returns its response as-is */
 export async function POST(req: NextRequest) {
-  try {
-    const { email, password } = await req.json();
-
-    if (!email || !password) {
-      return NextResponse.json({ error: "Email and password required" }, { status: 400 });
-    }
-
-    const res = await fetch(`${RAILWAY_URL}/api/user/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      return NextResponse.json({ error: data.error || "Invalid credentials" }, { status: res.status });
-    }
-
-    return NextResponse.json(data);
-  } catch {
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
-  }
+  return proxyToRailway(req, "/api/user/login", {
+    auth: false,
+    body: (await readJsonBody(req)) ?? {},
+  });
 }

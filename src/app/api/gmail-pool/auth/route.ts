@@ -1,23 +1,20 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
+import { proxyToRailway, readJsonBody } from "@/lib/railway";
 
-const RAILWAY_URL = process.env.RAILWAY_URL || "https://mailflow-license-server-production.up.railway.app";
+// Railway only exposes POST /api/gmail-pool/auth, so both methods here forward as POST.
 
-/** POST /api/gmail-pool/auth — start OAuth2 flow for a Gmail account */
-export async function POST(req: NextRequest) {
-  const token = req.headers.get("Authorization")?.replace("Bearer ", "");
-  if (!token) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
-  const { email } = await req.json();
-  if (!email) return NextResponse.json({ error: "Email required" }, { status: 400 });
-
-  const res = await fetch(`${RAILWAY_URL}/api/user/gmail-pool/auth`, {
+/** GET /api/gmail-pool/auth — start the Gmail OAuth flow; responds with `{ authUrl }` */
+export async function GET(req: NextRequest) {
+  return proxyToRailway(req, "/api/gmail-pool/auth", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({ email }),
+    body: {},
   });
-  const data = await res.json();
-  return NextResponse.json(data, { status: res.status });
+}
+
+/** POST /api/gmail-pool/auth — same as GET, optionally with `{ email }` as a login hint */
+export async function POST(req: NextRequest) {
+  return proxyToRailway(req, "/api/gmail-pool/auth", {
+    method: "POST",
+    body: (await readJsonBody(req)) ?? {},
+  });
 }
