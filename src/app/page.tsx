@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   Mail,
@@ -13,7 +12,6 @@ import {
   CheckCircle,
   Send,
   Users,
-  Clock,
 } from "lucide-react";
 
 const EASE = [0.4, 0, 0.2, 1] as [number, number, number, number];
@@ -55,7 +53,7 @@ const plans = [
       "5,000 emails per month",
       "Unlimited campaigns",
       "Advanced analytics",
-      "SMTP + Gmail API",
+      "Gmail OAuth sending",
       "High deliverability infrastructure",
       "Priority support",
     ],
@@ -73,7 +71,7 @@ const plans = [
       "25,000 emails per month",
       "Unlimited campaigns",
       "Real-time analytics",
-      "SMTP + Gmail API + Bulk",
+      "Gmail OAuth + Bulk sending",
       "Multi-page campaigns",
       "Clone & reuse campaigns",
       "Dedicated support",

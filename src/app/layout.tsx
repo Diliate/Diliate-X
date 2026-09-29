@@ -15,8 +15,14 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Diliate — Bulk Email Marketing Platform",
   description:
-    "Send thousands of emails with ease. Diliate is your all-in-one email marketing platform — bulk campaigns, Gmail API sending, smart scheduling, and real-time analytics.",
-  keywords: ["email marketing", "bulk email", "email campaigns", "Diliate", "MailEngine"],
+    "Send thousands of emails with ease. Diliate is your all-in-one email marketing platform — bulk campaigns, Gmail OAuth sending, smart scheduling, and real-time analytics.",
+  keywords: [
+    "email marketing",
+    "bulk email",
+    "email campaigns",
+    "Diliate",
+    "MailEngine",
+  ],
   openGraph: {
     title: "Diliate — Bulk Email Marketing Platform",
     description: "Send thousands of emails with ease.",
@@ -38,7 +44,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
         {children}
       </body>
     </html>
