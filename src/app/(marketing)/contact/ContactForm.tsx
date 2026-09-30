@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Send } from "lucide-react";
+import { CheckCircle2, Loader2, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CONTACT_EMAILS } from "@/lib/marketing";
 
@@ -25,24 +25,25 @@ const inputClass = (invalid: boolean) =>
     invalid ? "border-red-500" : "border-border",
   );
 
-/**
- * Contact form. There is no contact endpoint on the backend yet, so submitting opens
- * the visitor's email app with the message pre-addressed to the right inbox.
- */
+/** Contact form; sends the message via POST /api/contact. */
 export default function ContactForm({
   defaultTopic,
 }: {
   defaultTopic: ContactTopic;
 }) {
-  const [form, setForm] = useState({
+  const emptyForm = {
     name: "",
     email: "",
     company: "",
     topic: defaultTopic,
     message: "",
-  });
+  };
+  const [form, setForm] = useState(emptyForm);
   const [errors, setErrors] = useState<Partial<Record<Field, string>>>({});
-  const [opened, setOpened] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
+    "idle",
+  );
+  const [formError, setFormError] = useState("");
 
   const update =
     (key: keyof typeof form) =>
@@ -53,9 +54,10 @@ export default function ContactForm({
     ) => {
       setForm((f) => ({ ...f, [key]: e.target.value }));
       setErrors((prev) => ({ ...prev, [key]: undefined }));
+      if (status === "sent" || status === "error") setStatus("idle");
     };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const found: Partial<Record<Field, string>> = {};
     if (!form.name.trim()) found.name = "Please enter your name";
@@ -72,14 +74,41 @@ export default function ContactForm({
 
     const topicLabel =
       TOPICS.find((t) => t.value === form.topic)?.label ?? "Enquiry";
-    const subject = `${topicLabel} — ${form.name.trim()}${form.company.trim() ? ` (${form.company.trim()})` : ""}`;
-    const body = `${form.message.trim()}\n\n—\n${form.name.trim()}\n${form.email.trim()}${
-      form.company.trim() ? `\n${form.company.trim()}` : ""
-    }`;
-    window.location.href = `mailto:${CONTACT_EMAILS[form.topic]}?subject=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(body)}`;
-    setOpened(true);
+    const company = form.company.trim();
+    setStatus("sending");
+    setFormError("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name.trim(),
+          email: form.email.trim(),
+          subject: `${topicLabel} — ${form.name.trim()}`,
+          // The API has no company field, so keep it with the message.
+          message: company
+            ? `${form.message.trim()}\n\nCompany: ${company}`
+            : form.message.trim(),
+          topic: form.topic,
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.success) {
+        throw new Error(
+          data.error ||
+            "Could not send your message right now. Please try again later.",
+        );
+      }
+      setStatus("sent");
+      setForm(emptyForm);
+    } catch (err: unknown) {
+      setStatus("error");
+      setFormError(
+        err instanceof Error
+          ? err.message
+          : "Could not send your message right now. Please try again later.",
+      );
+    }
   };
 
   const control = (key: Field) => ({
@@ -177,17 +206,43 @@ export default function ContactForm({
 
       <button
         type="submit"
-        className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex w-full items-center justify-center gap-2 rounded-md py-3 text-sm font-semibold transition-all sm:w-auto sm:px-8"
+        disabled={status === "sending"}
+        className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex w-full items-center justify-center gap-2 rounded-md py-3 text-sm font-semibold transition-all disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:px-8"
       >
-        <Send aria-hidden className="h-4 w-4" />
-        Send message
+        {status === "sending" ? (
+          <Loader2
+            aria-hidden
+            className="h-4 w-4 animate-spin motion-reduce:animate-none"
+          />
+        ) : (
+          <Send aria-hidden className="h-4 w-4" />
+        )}
+        {status === "sending" ? "Sending…" : "Send message"}
       </button>
 
-      <p className="text-muted-foreground text-xs" aria-live="polite">
-        {opened
-          ? `Your email app should now be open with your message ready to send. If nothing happened, email us at ${CONTACT_EMAILS[form.topic]}.`
-          : "Sending opens your email app with the message pre-filled — nothing is sent until you press send there."}
-      </p>
+      <div aria-live="polite">
+        {status === "sent" && (
+          <p className="flex items-center gap-2 rounded-md bg-green-50 px-4 py-3 text-sm font-medium text-green-700">
+            <CheckCircle2 aria-hidden className="h-5 w-5 shrink-0" />
+            Message sent! We&apos;ll get back to you within 1 business day.
+          </p>
+        )}
+        {status === "error" && (
+          <p
+            role="alert"
+            className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+          >
+            {formError} You can also email us directly at{" "}
+            <a
+              href={`mailto:${CONTACT_EMAILS[form.topic]}`}
+              className="font-semibold underline underline-offset-2"
+            >
+              {CONTACT_EMAILS[form.topic]}
+            </a>
+            .
+          </p>
+        )}
+      </div>
     </form>
   );
 }
