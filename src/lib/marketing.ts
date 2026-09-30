@@ -248,4 +248,5 @@ export const CONTACT_EMAILS = {
   general: "hello@diliate.com",
   sales: "sales@diliate.com",
   support: "support@diliate.com",
+  legal: "legal@diliate.com",
 } as const;

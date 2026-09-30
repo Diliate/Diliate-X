@@ -11,6 +11,7 @@ const TOPICS: { value: ContactTopic; label: string }[] = [
   { value: "general", label: "General question" },
   { value: "sales", label: "Sales & custom plans" },
   { value: "support", label: "Support for my account" },
+  { value: "legal", label: "Legal & privacy" },
 ];
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
