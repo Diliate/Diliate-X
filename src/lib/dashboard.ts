@@ -8,10 +8,15 @@ export class ApiError extends Error {
   constructor(
     message: string,
     public status: number,
+    /** Machine-readable code when the backend sends one, e.g. "profile_incomplete". */
+    public code?: string,
   ) {
     super(message);
   }
 }
+
+/** Backend error codes are snake_case identifiers; anything else is a human-readable message. */
+const ERROR_CODE_RE = /^[a-z][a-z0-9_]*$/;
 
 type Json = Record<string, unknown>;
 
@@ -38,8 +43,16 @@ export async function apiFetch<T = unknown>(
   });
   const data: unknown = await res.json().catch(() => ({}));
   if (!res.ok) {
-    const message = isObject(data) ? str(data.error) || str(data.message) : "";
-    throw new ApiError(message || `Request failed (${res.status})`, res.status);
+    const error = isObject(data) ? str(data.error) : "";
+    const detail = isObject(data) ? str(data.message) : "";
+    // `{ error: "profile_incomplete", message: "Please…" }` → code + readable message.
+    const code = ERROR_CODE_RE.test(error) ? error : undefined;
+    const message = (code ? detail : error) || detail || error;
+    throw new ApiError(
+      message || `Request failed (${res.status})`,
+      res.status,
+      code,
+    );
   }
   return data as T;
 }
@@ -146,4 +159,21 @@ export function formatDate(iso: string | null) {
         day: "numeric",
         year: "numeric",
       });
+}
+
+// ── Profile ───────────────────────────────────────────────────────────
+
+/**
+ * True only when the backend explicitly reports an incomplete profile
+ * (`profile_complete: 0` on the Railway row, or `profileComplete: false`).
+ * Missing or unknown shapes count as complete, so a backend without the field never locks users out.
+ */
+export function isProfileIncomplete(data: unknown): boolean {
+  const u =
+    isObject(data) && isObject(data.user)
+      ? data.user
+      : isObject(data)
+        ? data
+        : {};
+  return u.profile_complete === 0 || u.profileComplete === false;
 }

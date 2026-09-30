@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { MotionConfig } from "framer-motion";
 import {
   LayoutDashboard,
@@ -21,6 +21,7 @@ import {
   apiFetch,
   ApiError,
   formatNumber,
+  isProfileIncomplete,
   toUserProfile,
   toUserStats,
   type UserProfile,
@@ -99,6 +100,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [fetchedUser, setFetchedUser] = useState<UserProfile | null>(null);
   const [usage, setUsage] = useState<Usage | null>(null);
@@ -135,7 +137,15 @@ export default function DashboardLayout({
         setUsage({ plan, emailsUsed, emailsLimit });
       })
       .catch(() => setUsage(null));
-  }, []);
+
+    // Send users with an incomplete profile to finish it. Only an explicit "incomplete"
+    // redirects — errors (e.g. a backend without the profile route) leave the dashboard usable.
+    apiFetch("/api/user/profile")
+      .then((data) => {
+        if (isProfileIncomplete(data)) router.replace("/profile/complete");
+      })
+      .catch(() => {});
+  }, [router]);
 
   const usagePct =
     usage && usage.emailsLimit > 0

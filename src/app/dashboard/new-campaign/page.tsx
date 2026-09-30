@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Play } from "lucide-react";
-import { apiFetch } from "@/lib/dashboard";
+import { apiFetch, ApiError } from "@/lib/dashboard";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -86,6 +86,10 @@ export default function NewCampaignPage() {
       });
       router.push("/dashboard/campaigns");
     } catch (err: unknown) {
+      if (err instanceof ApiError && err.code === "profile_incomplete") {
+        router.push("/profile/complete");
+        return;
+      }
       setError(
         err instanceof Error ? err.message : "Failed to create campaign",
       );

@@ -6,12 +6,12 @@ import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { saveSession } from "@/lib/auth";
+import { CONTACT_RANGES } from "@/lib/countries";
 import { PENDING_PLAN_STORAGE_KEY, type Plan } from "@/lib/plans";
 
 /** sessionStorage key the welcome step reads `{ firstName, companyName }` from. */
 export const WELCOME_STORAGE_KEY = "diliate_signup_welcome";
 
-const CONTACT_RANGES = ["0-500", "500-2k", "2k-10k", "10k+"];
 const WEBSITE_ERROR =
   "We couldn't verify your website. Please enter a valid company website.";
 
