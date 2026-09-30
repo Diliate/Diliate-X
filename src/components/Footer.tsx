@@ -130,7 +130,7 @@ export default function Footer() {
         </div>
 
         <div className="border-border text-muted-foreground mt-12 border-t pt-6 text-sm">
-          © 2024 Diliate. All rights reserved.
+          © 2026 Diliate. All rights reserved.
         </div>
       </div>
     </footer>
