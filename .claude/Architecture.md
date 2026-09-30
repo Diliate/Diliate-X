@@ -35,6 +35,13 @@ public/
 .claude/               # this documentation set
 ```
 
+### Current deviations (recorded 2026-09-30)
+
+- **Header/Footer** live at `src/components/Header.tsx` and `src/components/Footer.tsx` (not `components/layout/`), per product owner request. They are mounted once in `src/app/(marketing)/layout.tsx`; auth (`/login`, `/signup/*`) and `/dashboard` sit outside the group and don't get them.
+- **Marketing pages** are `(marketing)/{page,products,features,pricing,about,contact}`. Shared marketing copy lives in `src/lib/marketing.ts`; pricing names/prices derive from `src/lib/plans.ts` so signup and pricing can't drift.
+- **Scroll reveals** use `src/components/Reveal.tsx` (IntersectionObserver + CSS classes in `globals.css`) instead of Motion `whileInView`, so server HTML is never hidden (LCP/no-JS safe). Reduced motion is handled in CSS.
+- **Contact form** opens the visitor's email app (`mailto:`) because the backend has no contact endpoint yet. Replace with a Server Action once one exists.
+
 ## Component Structure
 
 Presentational primitives (`ui/`) are prop-driven and style-agnostic beyond the design system. Section components (`sections/`) compose primitives with real content and animation logic. Pages compose sections — pages themselves stay thin.

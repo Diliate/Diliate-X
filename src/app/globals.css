@@ -109,3 +109,23 @@
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary);
 }
+
+/* Scroll reveal (see src/components/Reveal.tsx): fade + rise for below-the-fold content. */
+.reveal-pending {
+  opacity: 0;
+  transform: translateY(24px);
+}
+.reveal-pending.reveal-in {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1) var(--reveal-delay, 0ms),
+    transform 0.55s cubic-bezier(0.4, 0, 0.2, 1) var(--reveal-delay, 0ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-pending {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
