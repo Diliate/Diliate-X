@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# collected form data (e.g. careers interest emails) — never commit
+/data/

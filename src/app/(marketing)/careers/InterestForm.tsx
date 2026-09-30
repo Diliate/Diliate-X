@@ -6,22 +6,42 @@ import { cn } from "@/lib/utils";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-/**
- * "Stay in the loop" form for future roles. Static for now: nothing is sent or stored —
- * submitting only swaps in a thank-you message. Wire to a backend before relying on it.
- */
+/** "Stay in the loop" form for future roles; saves via POST /api/careers/interest. */
 export default function InterestForm() {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!EMAIL_RE.test(email.trim())) {
       setError("Enter a valid email address");
       return;
     }
-    setSubmitted(true);
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/careers/interest", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.success) {
+        throw new Error(
+          data.error || "We couldn't save your email. Please try again.",
+        );
+      }
+      setSubmitted(true);
+    } catch (err: unknown) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "We couldn't save your email. Please try again.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -72,9 +92,10 @@ export default function InterestForm() {
       </div>
       <button
         type="submit"
-        className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-5 py-2.5 text-sm font-semibold transition-all"
+        disabled={submitting}
+        className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-5 py-2.5 text-sm font-semibold transition-all disabled:cursor-not-allowed disabled:opacity-60"
       >
-        Keep me posted
+        {submitting ? "Saving…" : "Keep me posted"}
       </button>
     </form>
   );
